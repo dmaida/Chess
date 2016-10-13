@@ -48,7 +48,7 @@ public class Main extends Application {
         if(p.isValidMove(cX,cY,nX,nY)){
             B.Tiles[cY][cX].isOccupied = false;
             B.Tiles[cY][cX].currentPiece = null;
-            
+
             B.Tiles[nY][nX].isOccupied = true;
             B.Tiles[nY][nX].currentPiece = p;
         }
