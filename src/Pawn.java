@@ -1,17 +1,42 @@
-import java.util.ArrayList;
 
 public class Pawn extends Piece {
-    public boolean BlackOrWhite;
-    public boolean isFirstMove;
+    public boolean isFirstMove = true;
 
-    public int currentRow;
-    public int currentCol;
+    public boolean isValidMove(int currX, int currY, int toX, int toY) {
+            if (isWhite) {
+                if (currY - 1 == toY | (currY - 2 == toY && isFirstMove)) {
+                    if (!chessBoard.Tiles[toX][toY].isOccupied) {
+                        isFirstMove = false;
+                        return true;
+                    }
+                }
 
-    public ArrayList<Board.Tile> listOfMoves;
+                if (currY - 1 == toY) {
+                    if (chessBoard.Tiles[toX][toY].isOccupied && !chessBoard.Tiles[toX][toY].currentPiece.isWhite) {
+                        if (currX + 1 == toX | currX - 1 == toX) {
+                            isFirstMove = false;
+                            return true;
+                        }
+                    }
+                } else return false;
 
+            } else {
+                if (currY + 1 == toY | (currY + 2 == toY && isFirstMove)) {
+                    if (!chessBoard.Tiles[toX][toY].isOccupied) {
+                        isFirstMove = false;
+                        return true;
+                    }
+                }
 
-    public boolean isValidMove(int row, int col) {
-
+                if (currY + 1 == toY) {
+                    if (chessBoard.Tiles[toX][toY].isOccupied && chessBoard.Tiles[toX][toY].currentPiece.isWhite) {
+                        if (currX + 1 == toX | currX - 1 == toX) {
+                            isFirstMove = false;
+                            return true;
+                        }
+                    }
+                } else return false;
+            }
         return false;
     }
 }

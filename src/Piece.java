@@ -1,7 +1,8 @@
 
 public abstract class Piece {
 
-    public abstract boolean isValidMove(int row, int col);
+    public Board chessBoard;
+    public boolean isWhite;
 
-
+    public abstract boolean isValidMove(int currX, int currY, int toX, int toY);
 }

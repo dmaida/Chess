@@ -2,36 +2,35 @@ public class Board {
 
     private int row = 8;
     private  int col = 8;
-    public Tile[][] chessBoard;
-
+    public Tile[][] Tiles;
 
     public Board() {
-        chessBoard = new Tile[row][col];
-        for (int i = 0; i < row; i++) {
-            for ( int j = 0; j < col; j++) {
+        Tiles = new Tile[col][row];
+        for (int i = 0; i < col; i++) {
+            for ( int j = 0; j < row; j++) {
+
                 Tile tile = new Tile();
-                chessBoard[i][j] = tile;
+                Tiles[i][j] = tile;
+                tile.x = i;
+                tile.y = j;
             }
         }
-    }
-
-    public void printBoard() {
-
     }
 
     public class Tile {
 
         public boolean isOccupied;
         public Piece currentPiece;
+        public int x;
+        public int y;
 
         public Tile (){
 
         }
 
-
-
-
-
+        public Piece getPiece() {
+            return currentPiece;
+        }
     }
 
 
