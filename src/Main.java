@@ -55,46 +55,6 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
-
-        //launch(args);
-
-        Board B = new Board();
-        Pawn whitePawn = new Pawn();
-        whitePawn.isWhite = true;
-
-        Pawn blackPawn = new Pawn();
-        blackPawn.isWhite = false;
-
-/*        cX = 5;
-        cY = 5;
-        nX = 5;
-        nY = 6;*/
-        //System.out.println("("+cX+" , "+cY+")");
-
-        whitePawn.chessBoard = B;
-        B.Tiles[5][5].isOccupied = true;
-        B.Tiles[5][5].currentPiece = whitePawn;
-
-        blackPawn.chessBoard = B;
-        B.Tiles[4][4].isOccupied = true;
-        B.Tiles[4][4].currentPiece = blackPawn;
-
-        print(B);
-
-        cX = 5;
-        cY = 5;
-        nX = 4;
-        nY = 4;
-
-        makeMove(B);
-        print(B);
-
-
-
-
-
-
-
+    public static void main(String[] args) {launch(args);
     }
 }

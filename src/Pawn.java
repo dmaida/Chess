@@ -1,6 +1,11 @@
 
 public class Pawn extends Piece {
+
     public boolean isFirstMove = true;
+
+    enum Name{
+        PAWN
+    }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
             if (isWhite) {
