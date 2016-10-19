@@ -46,9 +46,9 @@ public class Controller {
             for (int j = 0; j < col; j++) {
                 buttonMatrix[i][j].setText("");
                 if (B.Tiles[i][j].getPiece() != null &&  B.Tiles[i][j].getPiece().isWhite) {
-                    buttonMatrix[i][j].setText("W");
+                    buttonMatrix[i][j].setText("w");
                 } else if (B.Tiles[i][j].getPiece() != null &&  (B.Tiles[i][j].getPiece().isWhite==false)){
-                    buttonMatrix[i][j].setText("B");
+                    buttonMatrix[i][j].setText("b");
                 }
 
             }
@@ -87,13 +87,15 @@ public class Controller {
                 buttonMatrix[r][c].setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        if (firstClick) {
-                            firstClick = false;
-                            secondClick = true;
+
                         int r = gp.getRowIndex(currentButton);
                         int c = gp.getColumnIndex(currentButton);
-                        Main.cX = c;
-                        Main.cY = r;
+
+                        if (firstClick && B.Tiles[r][c].isOccupied) {
+                            firstClick = false;
+                            secondClick = true;
+                            Main.cX = c;
+                            Main.cY = r;
                         } else if (secondClick){
                             firstClick = true;
                             secondClick = false;
