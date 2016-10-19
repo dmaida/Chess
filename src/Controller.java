@@ -23,10 +23,10 @@ public class Controller {
     @FXML
     private void initialize() {
         B = new Board();
-        Pawn whitePawn = new Pawn();
+        Rook whitePawn = new Rook();
         whitePawn.isWhite = true;
 
-        Pawn blackPawn = new Pawn();
+        Rook blackPawn = new Rook();
         blackPawn.isWhite = false;
 
         whitePawn.chessBoard = B;
