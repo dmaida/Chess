@@ -13,6 +13,7 @@ public class Board {
                 Tiles[i][j] = tile;
                 tile.x = i;
                 tile.y = j;
+                tile.isOccupied = false;
             }
         }
     }

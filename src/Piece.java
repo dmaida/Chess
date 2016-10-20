@@ -5,4 +5,6 @@ public abstract class Piece {
     public boolean isWhite;
 
     public abstract boolean isValidMove(int currX, int currY, int toX, int toY);
+
+
 }

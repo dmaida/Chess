@@ -8,6 +8,10 @@ public class Rook extends Piece {
     }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
+
+        if(currX == toX && currY == toY) return false;
+
+
         if (isWhite) {
             if(currX == toX){
                 int dir =1;

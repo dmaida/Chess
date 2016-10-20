@@ -23,19 +23,19 @@ public class Controller {
     @FXML
     private void initialize() {
         B = new Board();
-        Rook whitePawn = new Rook();
-        whitePawn.isWhite = true;
+        Bishop piece1 = new Bishop();
+        piece1.isWhite = true;
 
-        Rook blackPawn = new Rook();
-        blackPawn.isWhite = false;
+        Bishop piece2 = new Bishop();
+        piece2.isWhite = true;
 
-        whitePawn.chessBoard = B;
+        piece1.chessBoard = B;
         B.Tiles[5][5].isOccupied = true;
-        B.Tiles[5][5].currentPiece = whitePawn;
+        B.Tiles[5][5].currentPiece = piece1;
 
-        blackPawn.chessBoard = B;
+        piece2.chessBoard = B;
         B.Tiles[4][4].isOccupied = true;
-        B.Tiles[4][4].currentPiece = blackPawn;
+        B.Tiles[4][4].currentPiece = piece2;
 
         makeButtons();
         updateView();
@@ -50,7 +50,6 @@ public class Controller {
                 } else if (B.Tiles[i][j].getPiece() != null &&  (B.Tiles[i][j].getPiece().isWhite==false)){
                     buttonMatrix[i][j].setText("b");
                 }
-
             }
         }
     }
@@ -92,11 +91,14 @@ public class Controller {
                         int c = gp.getColumnIndex(currentButton);
 
                         if (firstClick && B.Tiles[r][c].isOccupied) {
+                            //System.out.println("["+r+"]["+c+"] Click 1 made");
                             firstClick = false;
                             secondClick = true;
                             Main.cX = c;
                             Main.cY = r;
                         } else if (secondClick){
+                            //System.out.println("["+r+"]["+c+"] Click 2 made");
+                            //if(B.Tiles[r][c].isOccupied) System.out.println("That tile is occupied");
                             firstClick = true;
                             secondClick = false;
 
