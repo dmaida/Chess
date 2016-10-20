@@ -42,6 +42,13 @@ public class Controller {
         B.Tiles[5][5].isOccupied = true;
         B.Tiles[5][5].currentPiece = queen;
 
+        Queen queen1 = new Queen();
+        queen.isWhite = true;
+
+        queen1.chessBoard = B;
+        B.Tiles[6][5].isOccupied = true;
+        B.Tiles[6][5].currentPiece = queen1;
+
         /*rook.chessBoard = B;
         B.Tiles[1][1].isOccupied = true;
         B.Tiles[1][1].currentPiece = rook;

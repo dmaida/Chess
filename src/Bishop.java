@@ -32,10 +32,10 @@ public class Bishop extends Piece {
         }
 
         if((tempX == toX && tempY == toY)) {
-            if (isWhite)
+            if (isWhite) {
                 if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
                     return true;
-
+            }
             else if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
                 return true;
         }
