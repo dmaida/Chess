@@ -23,19 +23,42 @@ public class Controller {
     @FXML
     private void initialize() {
         B = new Board();
-        Bishop piece1 = new Bishop();
-        piece1.isWhite = true;
+        /*Bishop piece1 = new Bishop();
+        piece1.isWhite = false;
 
         Bishop piece2 = new Bishop();
         piece2.isWhite = true;
 
-        piece1.chessBoard = B;
+        Pawn pawn = new Pawn();
+        pawn.isWhite = true;
+
+        Rook rook = new Rook();
+        rook.isWhite = false;*/
+
+        Queen queen = new Queen();
+        queen.isWhite = false;
+
+        queen.chessBoard = B;
         B.Tiles[5][5].isOccupied = true;
-        B.Tiles[5][5].currentPiece = piece1;
+        B.Tiles[5][5].currentPiece = queen;
+
+        /*rook.chessBoard = B;
+        B.Tiles[1][1].isOccupied = true;
+        B.Tiles[1][1].currentPiece = rook;
+
+        pawn.chessBoard = B;
+        B.Tiles[2][2].isOccupied = true;
+        B.Tiles[2][2].currentPiece = pawn;
+
+        piece1.chessBoard = B;
+        B.Tiles[5][3].isOccupied = true;
+        B.Tiles[5][3].currentPiece = piece1;
 
         piece2.chessBoard = B;
-        B.Tiles[4][4].isOccupied = true;
-        B.Tiles[4][4].currentPiece = piece2;
+        B.Tiles[1][4].isOccupied = true;
+        B.Tiles[1][4].currentPiece = piece2;*/
+
+
 
         makeButtons();
         updateView();

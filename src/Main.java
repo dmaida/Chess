@@ -38,7 +38,6 @@ public class Main extends Application {
             }
             System.out.println();
         }
-
     }
 
     public static void makeMove(Board B) {
@@ -53,7 +52,6 @@ public class Main extends Application {
             B.Tiles[nY][nX].currentPiece = p;
         }
     }
-
 
     public static void main(String[] args) {launch(args);
     }

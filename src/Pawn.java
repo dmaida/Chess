@@ -13,38 +13,39 @@ public class Pawn extends Piece {
 
         if (isWhite) {
             if ((currY - 1 == toY | (currY - 2 == toY && isFirstMove)) && currX == toX) {
-                if (!chessBoard.Tiles[toX][toY].isOccupied) {
+                if (!chessBoard.Tiles[toY][toX].isOccupied) {
                     isFirstMove = false;
                     return true;
                 }
             }
 
             if (currY - 1 == toY) {
-                if (chessBoard.Tiles[toX][toY].isOccupied && !chessBoard.Tiles[toX][toY].currentPiece.isWhite) {
+                if (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite) {
                     if (currX + 1 == toX | currX - 1 == toX) {
                         isFirstMove = false;
                         return true;
                     }
 
                 }
-            } return false;
+            }
+        }
 
-        } else {
+        else {
             if ((currY + 1 == toY | (currY + 2 == toY && isFirstMove)) && currX == toX) {
-                if (!chessBoard.Tiles[toX][toY].isOccupied) {
+                if (!chessBoard.Tiles[toY][toX].isOccupied) {
                     isFirstMove = false;
                     return true;
                 }
             }
 
             if (currY + 1 == toY) {
-                if (chessBoard.Tiles[toX][toY].isOccupied && chessBoard.Tiles[toX][toY].currentPiece.isWhite) {
+                if (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite) {
                     if (currX + 1 == toX | currX - 1 == toX) {
                         isFirstMove = false;
                         return true;
                     }
                 }
-            } else return false;
+            }
         }
         return false;
     }
