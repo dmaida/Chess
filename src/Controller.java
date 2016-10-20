@@ -23,6 +23,21 @@ public class Controller {
     @FXML
     private void initialize() {
         B = new Board();
+
+        Knight knight = new Knight();
+        knight.isWhite = false;
+
+        B.Tiles[4][4].isOccupied = true;
+        B.Tiles[4][4].currentPiece = knight;
+        knight.chessBoard = B;
+
+        Knight knight1 = new Knight();
+        knight1.isWhite = false;
+
+        B.Tiles[5][5].isOccupied = true;
+        B.Tiles[5][5].currentPiece = knight1;
+        knight1.chessBoard = B;
+
         /*Bishop piece1 = new Bishop();
         piece1.isWhite = false;
 
@@ -33,7 +48,7 @@ public class Controller {
         pawn.isWhite = true;
 
         Rook rook = new Rook();
-        rook.isWhite = false;*/
+        rook.isWhite = false;
 
         Queen queen = new Queen();
         queen.isWhite = false;
@@ -49,7 +64,7 @@ public class Controller {
         B.Tiles[6][5].isOccupied = true;
         B.Tiles[6][5].currentPiece = queen1;
 
-        /*rook.chessBoard = B;
+        rook.chessBoard = B;
         B.Tiles[1][1].isOccupied = true;
         B.Tiles[1][1].currentPiece = rook;
 
