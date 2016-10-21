@@ -1,8 +1,8 @@
 
 public class King extends Piece {
 
-    enum Name{
-        KING
+    public King (Board board, String name, boolean isWhite) {
+        super(board, name, isWhite);
     }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {

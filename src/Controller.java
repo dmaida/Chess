@@ -1,10 +1,17 @@
+import javafx.collections.MapChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
+
+import java.util.EventListener;
 
 public class Controller {
 
@@ -14,54 +21,60 @@ public class Controller {
     @FXML
     public Button[][] buttonMatrix;
 
-    private int row = 8;
-    private int col = 8;
+    private final int row = 8;
+    private final int col = 8;
     Board B;
     boolean firstClick = true;
     boolean secondClick = false;
 
     @FXML
     private void initialize() {
+
         B = new Board();
 
-        King king = new King();
-        king.isWhite = true;
+        Queen queen = new Queen(B, "Queen", true);
+        King king = new King(B, "King", true);
 
         B.Tiles[7][4].isOccupied = true;
-        B.Tiles[7][4].currentPiece = king;
-        king.chessBoard = B;
+        B.Tiles[7][4].currentPiece = queen;
 
-        Knight knight = new Knight();
-        knight.isWhite = false;
-
-        B.Tiles[3][3].isOccupied = true;
-        B.Tiles[3][3].currentPiece = knight;
-        knight.chessBoard = B;
-
-        Rook rook = new Rook();
-        rook.isWhite = true;
-
-        B.Tiles[7][7].isOccupied = true;
-        B.Tiles[7][7].currentPiece = rook;
-        rook.chessBoard = B;
+        B.Tiles[6][4].isOccupied = true;
+        B.Tiles[6][4].currentPiece = king;
 
         makeButtons();
         updateView();
     }
 
     private void updateView() {
+
+        Image img_bishop = new Image(getClass().getResourceAsStream("gui/w_bishop.png"), 30, 30, true, true);
+        Image img_king = new Image(getClass().getResourceAsStream("gui/w_king.png"), 30, 30, true, true);
+        Image img_knight = new Image(getClass().getResourceAsStream("gui/w_knight.png"), 30, 30, true, true);
+        Image img_pawn = new Image(getClass().getResourceAsStream("gui/w_pawn.png"), 30, 30, true, true);
+        Image img_queen = new Image(getClass().getResourceAsStream("gui/w_queen.png"), 30, 30, true, true);
+        Image img_rook = new Image(getClass().getResourceAsStream("gui/w_rook.png"), 30, 30, true, true);
+
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                buttonMatrix[i][j].setText("");
-                if (B.Tiles[i][j].getPiece() != null &&  B.Tiles[i][j].getPiece().isWhite) {
-                    buttonMatrix[i][j].setText("w");
-                } else if (B.Tiles[i][j].getPiece() != null &&  (B.Tiles[i][j].getPiece().isWhite==false)){
-                    buttonMatrix[i][j].setText("b");
+                if (B.Tiles[i][j].currentPiece != null) {
+                    Piece p = B.Tiles[i][j].getPiece();
+                    String name = p.name;
+                   if ((name.compareTo("Queen") == 0)) {
+                       buttonMatrix[i][j].setGraphic(new ImageView(img_queen));
+                    }
+                    else if (name.compareTo("King") == 0) {
+                       buttonMatrix[i][j].setGraphic(new ImageView(img_king));
+                   }
+                   else if (name.compareTo("Rook") == 0) {
+                       buttonMatrix[i][j].setGraphic(new ImageView(img_king));
+                   }
+                }
+                else {
+                    buttonMatrix[i][j].setGraphic(null);
                 }
             }
         }
     }
-
 
     public void makeButtons ( ) {
 
@@ -73,22 +86,23 @@ public class Controller {
 
         for (int i = 0; i < row; i++) {
             RowConstraints row = new RowConstraints();
-            row.setMaxHeight(30);
-            row.setMinHeight(30);
+            row.setMaxHeight(50);
+            row.setMinHeight(50);
             gp.getRowConstraints().add(row);
+
         }
 
         for (int i = 0; i < col; i++) {
             ColumnConstraints column = new ColumnConstraints();
-            column.setMaxWidth(30);
-            column.setMinWidth(30);
+            column.setMaxWidth(50);
+            column.setMinWidth(50);
             gp.getColumnConstraints().add(column);
         }
 
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
                 buttonMatrix[r][c] = new Button();
-                buttonMatrix[r][c].setPrefSize(30, 30);
+                buttonMatrix[r][c].setPrefSize(50, 50);
                 gp.add(buttonMatrix[r][c], c, r);
                 Button currentButton = buttonMatrix[r][c];
                 buttonMatrix[r][c].setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -99,14 +113,11 @@ public class Controller {
                         int c = gp.getColumnIndex(currentButton);
 
                         if (firstClick && B.Tiles[r][c].isOccupied) {
-                            //System.out.println("["+r+"]["+c+"] Click 1 made");
                             firstClick = false;
                             secondClick = true;
                             Main.cX = c;
                             Main.cY = r;
                         } else if (secondClick){
-                            //System.out.println("["+r+"]["+c+"] Click 2 made");
-                            //if(B.Tiles[r][c].isOccupied) System.out.println("That tile is occupied");
                             firstClick = true;
                             secondClick = false;
 

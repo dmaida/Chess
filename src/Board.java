@@ -1,7 +1,7 @@
 public class Board {
 
-    private int row = 8;
-    private  int col = 8;
+    private final int row = 8;
+    private final int col = 8;
     public Tile[][] Tiles;
 
     public Board() {

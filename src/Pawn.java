@@ -1,8 +1,8 @@
 
 public class Pawn extends Piece {
 
-    enum Name{
-        PAWN
+    public Pawn (Board board, String name, boolean isWhite) {
+        super(board, name, isWhite);
     }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {

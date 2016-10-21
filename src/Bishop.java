@@ -1,10 +1,9 @@
 
 public class Bishop extends Piece {
 
-    enum Name{
-        ROOK
+    public Bishop (Board board, String name, boolean isWhite) {
+        super(board, name, isWhite);
     }
-
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
 
         if(currX == toX && currY == toY) return false;

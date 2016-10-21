@@ -1,8 +1,8 @@
 
 public class Queen extends Piece{
 
-    enum Name{
-        QUEEN
+    public Queen (Board board, String name, boolean isWhite) {
+        super(board, name, isWhite);
     }
 
 
