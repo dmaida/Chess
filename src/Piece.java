@@ -1,6 +1,8 @@
 
 public abstract class Piece {
 
+    public boolean isFirstMove = true;
+
     public Board chessBoard;
     public boolean isWhite;
 

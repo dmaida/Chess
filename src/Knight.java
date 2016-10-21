@@ -16,16 +16,20 @@ public class Knight extends Piece{
 
         if( ((toX == currX + (2*xDir)) && (toY == currY + yDir)) | ((toY == currY + (2*yDir)) && (toX == currX + xDir)) ){
 
-            if (!chessBoard.Tiles[toY][toX].isOccupied)
+            if ((!chessBoard.Tiles[toY][toX].isOccupied) |
+                    (isWhite && !chessBoard.Tiles[toY][toX].currentPiece.isWhite) |
+                    (chessBoard.Tiles[toY][toX].isOccupied && !isWhite && chessBoard.Tiles[toY][toX].currentPiece.isWhite)) {
+                isFirstMove = false;
                 return true;
+            }
 
-            if (isWhite && !chessBoard.Tiles[toY][toX].currentPiece.isWhite){
+            /*if (isWhite && !chessBoard.Tiles[toY][toX].currentPiece.isWhite){
                 return true;
             }
 
             if (!isWhite && chessBoard.Tiles[toY][toX].currentPiece.isWhite){
                 return true;
-            }
+            }*/
 
         }
 

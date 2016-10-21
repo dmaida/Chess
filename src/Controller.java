@@ -24,63 +24,26 @@ public class Controller {
     private void initialize() {
         B = new Board();
 
+        King king = new King();
+        king.isWhite = true;
+
+        B.Tiles[7][4].isOccupied = true;
+        B.Tiles[7][4].currentPiece = king;
+        king.chessBoard = B;
+
         Knight knight = new Knight();
         knight.isWhite = false;
 
-        B.Tiles[4][4].isOccupied = true;
-        B.Tiles[4][4].currentPiece = knight;
+        B.Tiles[3][3].isOccupied = true;
+        B.Tiles[3][3].currentPiece = knight;
         knight.chessBoard = B;
 
-        Knight knight1 = new Knight();
-        knight1.isWhite = false;
-
-        B.Tiles[5][5].isOccupied = true;
-        B.Tiles[5][5].currentPiece = knight1;
-        knight1.chessBoard = B;
-
-        /*Bishop piece1 = new Bishop();
-        piece1.isWhite = false;
-
-        Bishop piece2 = new Bishop();
-        piece2.isWhite = true;
-
-        Pawn pawn = new Pawn();
-        pawn.isWhite = true;
-
         Rook rook = new Rook();
-        rook.isWhite = false;
+        rook.isWhite = true;
 
-        Queen queen = new Queen();
-        queen.isWhite = false;
-
-        queen.chessBoard = B;
-        B.Tiles[5][5].isOccupied = true;
-        B.Tiles[5][5].currentPiece = queen;
-
-        Queen queen1 = new Queen();
-        queen.isWhite = true;
-
-        queen1.chessBoard = B;
-        B.Tiles[6][5].isOccupied = true;
-        B.Tiles[6][5].currentPiece = queen1;
-
+        B.Tiles[7][7].isOccupied = true;
+        B.Tiles[7][7].currentPiece = rook;
         rook.chessBoard = B;
-        B.Tiles[1][1].isOccupied = true;
-        B.Tiles[1][1].currentPiece = rook;
-
-        pawn.chessBoard = B;
-        B.Tiles[2][2].isOccupied = true;
-        B.Tiles[2][2].currentPiece = pawn;
-
-        piece1.chessBoard = B;
-        B.Tiles[5][3].isOccupied = true;
-        B.Tiles[5][3].currentPiece = piece1;
-
-        piece2.chessBoard = B;
-        B.Tiles[1][4].isOccupied = true;
-        B.Tiles[1][4].currentPiece = piece2;*/
-
-
 
         makeButtons();
         updateView();

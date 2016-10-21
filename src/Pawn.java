@@ -1,8 +1,6 @@
 
 public class Pawn extends Piece {
 
-    public boolean isFirstMove = true;
-
     enum Name{
         PAWN
     }

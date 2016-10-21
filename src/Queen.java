@@ -1,6 +1,10 @@
 
 public class Queen extends Piece{
 
+    enum Name{
+        QUEEN
+    }
+
 
     public boolean isValidMove(int currX, int currY, int toX, int toY){
 
@@ -21,6 +25,7 @@ public class Queen extends Piece{
                     tempY = tempY + dir;
                 }
                 if(tempY == toY && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite))){
+                    isFirstMove = false;
                     return true;
                 }
             }
@@ -38,11 +43,15 @@ public class Queen extends Piece{
                 }
 
                 if(isWhite) {
-                    if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
+                    if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                        isFirstMove = false;
                         return true;
+                    }
                 }
-                else if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
+                else if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                    isFirstMove = false;
                     return true;
+                }
             }
 
         }
@@ -78,11 +87,15 @@ public class Queen extends Piece{
 
             if((tempX == toX && tempY == toY)) {
                 if (isWhite) {
-                    if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
+                    if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                        isFirstMove = false;
                         return true;
+                    }
                 }
-                else if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
+                else if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                    isFirstMove = false;
                     return true;
+                }
             }
 
         }

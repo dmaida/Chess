@@ -1,8 +1,6 @@
 
 public class Rook extends Piece {
 
-    public boolean isFirstMove = true;
-
     enum Name{
         ROOK
     }
@@ -23,6 +21,7 @@ public class Rook extends Piece {
                 tempY = tempY + dir;
             }
             if(tempY == toY && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite))){
+                isFirstMove = false;
                 return true;
             }
         }
@@ -40,11 +39,15 @@ public class Rook extends Piece {
             }
 
             if(isWhite) {
-                if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
+                if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                    isFirstMove = false;
                     return true;
+                }
             }
-            else if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite)))
+            else if (tempX == toX && (!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                isFirstMove = false;
                 return true;
+            }
         }
         return false;
     }
