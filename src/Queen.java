@@ -1,8 +1,8 @@
 
 public class Queen extends Piece{
 
-    public Queen (Board board, String name, boolean isWhite) {
-        super(board, name, isWhite);
+    public Queen (Board board, String name, boolean isWhite, int y, int x) {
+        super(board, name, isWhite, y, x);
     }
 
 

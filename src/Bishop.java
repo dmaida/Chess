@@ -1,8 +1,8 @@
 
 public class Bishop extends Piece {
 
-    public Bishop (Board board, String name, boolean isWhite) {
-        super(board, name, isWhite);
+    public Bishop (Board board, String name, boolean isWhite, int y, int x) {
+        super(board, name, isWhite, y, x);
     }
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
 
@@ -27,7 +27,6 @@ public class Bishop extends Piece {
 
             tempY = tempY + yDir;
             tempX = tempX + xDir;
-
         }
 
         if((tempX == toX && tempY == toY)) {

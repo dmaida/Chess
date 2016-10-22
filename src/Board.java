@@ -28,7 +28,6 @@ public class Board {
         public Tile (){
 
         }
-
         public Piece getPiece() {
             return currentPiece;
         }

@@ -1,8 +1,8 @@
 
 public class Pawn extends Piece {
 
-    public Pawn (Board board, String name, boolean isWhite) {
-        super(board, name, isWhite);
+    public Pawn (Board board, String name, boolean isWhite, int y, int x) {
+        super(board, name, isWhite, y, x);
     }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {

@@ -7,10 +7,11 @@ public abstract class Piece {
     public boolean isWhite;
     public String name;
 
-    public Piece (Board chessBoard, String name, boolean isWhite) {
+    public Piece (Board chessBoard, String name, boolean isWhite, int y, int x) {
         this.chessBoard = chessBoard;
         this.name = name;
         this.isWhite = isWhite;
+        this.chessBoard.Tiles[y][x].isOccupied = true;
     }
 
     public abstract boolean isValidMove(int currX, int currY, int toX, int toY);

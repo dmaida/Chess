@@ -11,13 +11,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("chess.fxml"));
         primaryStage.setTitle("Chess");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
     }
-
-
+    
     public static void print(Board B){
         System.out.print("   ");
         for (int i = 0; i < 8; i++){
@@ -29,8 +28,8 @@ public class Main extends Application {
             System.out.print(i+" ");
             System.out.print("|");
             for (int j = 0; j < 8; j++) {
-                if(B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite ==true)){
-                    System.out.print("W|");
+                if(B.Tiles[i][j].isOccupied){
+                    System.out.print("O|");
                 }
                 else if(B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite ==false)){
                     System.out.print("B|");
