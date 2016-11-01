@@ -247,6 +247,8 @@ public class Controller {
                             secondClick = true;
                             Main.cX = c;
                             Main.cY = r;
+                            Main.getListOfMoves(B);
+
                         } else if (secondClick){
                             firstClick = true;
                             secondClick = false;

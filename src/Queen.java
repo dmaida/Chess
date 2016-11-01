@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Queen extends Piece{
 
@@ -5,6 +6,12 @@ public class Queen extends Piece{
         super(board, name, isWhite, y, x);
     }
 
+    public ArrayList<Board.Tile> getMoves(int currX, int currY) {
+        moveList = new ArrayList<>();
+        int x = currX;
+        int y = currY;
+        return moveList;
+    }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY){
 
@@ -80,19 +87,16 @@ public class Queen extends Piece{
                 tempX = tempX + xDir;
 
             }
-            System.out.println("broke out of while loop");
-            System.out.println("temp[x][y] = ["+tempX+"]["+tempY+"]");
-
 
 
             if((tempX == toX && tempY == toY)) {
                 if (isWhite) {
-                    if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && !chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                    if ((!chessBoard.Tiles[toY][toX].isOccupied | (isWhite != chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
                         isFirstMove = false;
                         return true;
                     }
                 }
-                else if ((!chessBoard.Tiles[toY][toX].isOccupied | (chessBoard.Tiles[toY][toX].isOccupied && chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
+                else if ((!chessBoard.Tiles[toY][toX].isOccupied | (isWhite == chessBoard.Tiles[toY][toX].currentPiece.isWhite))) {
                     isFirstMove = false;
                     return true;
                 }

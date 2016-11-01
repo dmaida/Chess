@@ -40,6 +40,11 @@ public class Main extends Application {
         }
     }
 
+    public static void getListOfMoves(Board B) {
+        Piece p = B.Tiles[cY][cX].getPiece();
+        p.getMoves(cX, cY);
+    }
+
     public static void makeMove(Board B) {
 
         Piece p = B.Tiles[cY][cX].getPiece();
@@ -50,6 +55,7 @@ public class Main extends Application {
 
             B.Tiles[nY][nX].isOccupied = true;
             B.Tiles[nY][nX].currentPiece = p;
+
         }
     }
 

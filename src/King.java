@@ -1,8 +1,16 @@
+import java.util.ArrayList;
 
 public class King extends Piece {
 
     public King (Board board, String name, boolean isWhite, int y, int x) {
         super(board, name, isWhite, y, x);
+    }
+
+    public ArrayList<Board.Tile> getMoves(int currX, int currY) {
+        moveList = new ArrayList<>();
+        int x = currX;
+        int y = currY;
+        return moveList;
     }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
