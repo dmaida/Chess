@@ -12,6 +12,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.EventListener;
 
 public class Controller {
@@ -193,6 +194,29 @@ public class Controller {
         }
     }
 
+    private void drawMoves(ArrayList<Board.Tile> moveList) {
+        for (int i = 0; i < moveList.size(); i++) {
+            int x = moveList.get(i).x;
+            int y = moveList.get(i).y;
+            buttonMatrix[y][x].setStyle("-fx-background-color: #FF0000");
+        }
+    }
+
+    private void eraseMoves() {
+
+        for (int r = 0; r < row; r++) {
+            for (int c = 0; c < col; c++) {
+                if ((r) % 2 == 0 && (c + 1) % 2 == 0) {
+                    buttonMatrix[r][c].setStyle("-fx-background-color: #808080");
+                } else if ((r + 1) % 2 == 0 && (c) % 2 == 0) {
+                    buttonMatrix[r][c].setStyle("-fx-background-color: #808080");
+                } else {
+                    buttonMatrix[r][c].setStyle("-fx-background-color: #ffffff");
+                }
+            }
+        }
+    }
+
     public void makeButtons ( ) {
 
         gp.getColumnConstraints().removeAll(gp.getColumnConstraints());
@@ -247,16 +271,15 @@ public class Controller {
                             secondClick = true;
                             Main.cX = c;
                             Main.cY = r;
-                            Main.getListOfMoves(B);
-
+                            drawMoves(Main.getListOfMoves(B));
                         } else if (secondClick){
                             firstClick = true;
                             secondClick = false;
-
                             int row = gp.getRowIndex(currentButton);
                             int col = gp.getColumnIndex(currentButton);
                             Main.nX = col;
                             Main.nY = row;
+                            eraseMoves();
                             Main.makeMove(B);
                         }
                         updateView();

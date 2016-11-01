@@ -31,7 +31,6 @@ public class Rook extends Piece {
             if (!chessBoard.Tiles[i][x].isOccupied) {
                 moveList.add(chessBoard.Tiles[i][x]);
             }
-
         }
 
         for (int i = x; i < 8; i++) {
@@ -69,7 +68,6 @@ public class Rook extends Piece {
             System.out.println("row == " + x + " col == "+ y);
         }
     }
-
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
 

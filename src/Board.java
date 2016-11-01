@@ -11,8 +11,8 @@ public class Board {
 
                 Tile tile = new Tile();
                 Tiles[i][j] = tile;
-                tile.x = i;
-                tile.y = j;
+                tile.x = j;
+                tile.y = i;
                 tile.isOccupied = false;
             }
         }
@@ -25,9 +25,6 @@ public class Board {
         public int x;
         public int y;
 
-        public Tile (){
-
-        }
         public Piece getPiece() {
             return currentPiece;
         }

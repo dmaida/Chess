@@ -8,8 +8,68 @@ public class Bishop extends Piece {
 
     public ArrayList<Board.Tile> getMoves(int currX, int currY) {
         moveList = new ArrayList<>();
-        int x = currX;
-        int y = currY;
+
+        int j = currX;
+        int i = currY;
+
+        while (i < 7 && j > 0){
+            i++;
+            j--;
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+            if (chessBoard.Tiles[i][j].isOccupied)
+                break;
+            if (!chessBoard.Tiles[i][j].isOccupied) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+        }
+        j = currX;
+        i = currY;
+        while (i > 0 && j < 7){
+            i--;
+            j++;
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+            if (chessBoard.Tiles[i][j].isOccupied)
+                break;
+            if (!chessBoard.Tiles[i][j].isOccupied) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+        }
+
+        j = currX;
+        i = currY;
+
+        while (i < 7 && j < 7){
+            i++;
+            j++;
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+            if (chessBoard.Tiles[i][j].isOccupied)
+                break;
+            if (!chessBoard.Tiles[i][j].isOccupied) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+        }
+
+        j = currX;
+        i = currY;
+
+        while (i > 0 && j > 0){
+            i--;
+            j--;
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+            if (chessBoard.Tiles[i][j].isOccupied)
+                break;
+            if (!chessBoard.Tiles[i][j].isOccupied) {
+                moveList.add(chessBoard.Tiles[i][j]);
+            }
+        }
         return moveList;
     }
 

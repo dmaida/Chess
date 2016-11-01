@@ -4,6 +4,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class Main extends Application {
 
     public static int cX, cY, nX, nY;
@@ -40,9 +42,9 @@ public class Main extends Application {
         }
     }
 
-    public static void getListOfMoves(Board B) {
+    public static ArrayList<Board.Tile> getListOfMoves(Board B) {
         Piece p = B.Tiles[cY][cX].getPiece();
-        p.getMoves(cX, cY);
+        return p.getMoves(cX, cY);
     }
 
     public static void makeMove(Board B) {
