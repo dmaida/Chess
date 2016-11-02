@@ -18,29 +18,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
     }
-    
-    public static void print(Board B){
-        System.out.print("   ");
-        for (int i = 0; i < 8; i++){
-            System.out.print(i+" ");
-        }
-
-        System.out.println();
-        for (int i = 0; i < 8; i++){
-            System.out.print(i+" ");
-            System.out.print("|");
-            for (int j = 0; j < 8; j++) {
-                if(B.Tiles[i][j].isOccupied){
-                    System.out.print("O|");
-                }
-                else if(B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite ==false)){
-                    System.out.print("B|");
-                }
-                else System.out.print("_|");
-            }
-            System.out.println();
-        }
-    }
 
     public static ArrayList<Board.Tile> getListOfMoves(Board B) {
         Piece p = B.Tiles[cY][cX].getPiece();

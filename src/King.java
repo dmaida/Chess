@@ -7,33 +7,37 @@ public class King extends Piece {
     }
 
     public ArrayList<Board.Tile> getMoves(int currX, int currY) {
-        moveList = new ArrayList<>();
+
         int x = currX;
         int y = currY;
+
+       // moveList = check();
+        //moveList = check();
         return moveList;
+    }
+
+    private ArrayList<Board.Tile> check() {
+        ArrayList<Board.Tile> dontMoveHere = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chessBoard.Tiles[i][j].currentPiece != null && isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) {
+                    Piece p = chessBoard.Tiles[i][j].currentPiece;
+                    ArrayList<Board.Tile> move = p.moveList;
+                    if (move != null) {
+                        for (int k = 0; k < move.size(); k++) {
+
+                            dontMoveHere.add(move.get(k));
+                        }
+                    }
+                }
+            }
+        }
+        return dontMoveHere;
     }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
 
-        if(currX == toX && currY == toY) return false;
-
-        if( (Math.abs(currX - toX) <= 1 && Math.abs(currY - toY) <= 1)){ // moving no more than 1 space
-            if ((!chessBoard.Tiles[toY][toX].isOccupied) |
-                    (chessBoard.Tiles[toY][toX].isOccupied && isWhite != chessBoard.Tiles[toY][toX].currentPiece.isWhite)
-                    /*|(chessBoard.Tiles[toY][toX].isOccupied && isWhite != chessBoard.Tiles[toY][toX].currentPiece.isWhite)*/) { // if space is not taken, or if taken and opposite color
-                chessBoard.Tiles[currY][currX].isOccupied = false; // remove piece off of board not 'check' isItSafe()
-                if (isItSafe(toX, toY)){
-                    chessBoard.Tiles[currY][currX].isOccupied = true; // put back on the board and return true
-                    isFirstMove = false;
-                    return true;
-                }
-                chessBoard.Tiles[currY][currX].isOccupied = true;
-            }
-        }
-        if(canCastle(currX, currY, toX, toY)){
-            return true;
-        }
-        return false;
+      return true;
     }
 
     private boolean canCastle(int currX, int currY, int toX, int toY){
