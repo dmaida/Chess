@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 
-<GridPane fx:id="gp" alignment="center" gridLinesVisible="true" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="Controller">
-</GridPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <center>
+      <GridPane fx:id="gp" alignment="CENTER" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </center>
+   <top>
+      <MenuButton mnemonicParsing="false" text="Options" BorderPane.alignment="TOP_LEFT">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Reset" />
+          <MenuItem mnemonicParsing="false" text="Change Theme" />
+            <MenuItem mnemonicParsing="false" text="Hint" />
+            <MenuItem mnemonicParsing="false" text="Difficulty" />
+        </items>
+         <padding>
+            <Insets bottom="-5.0" top="-5.0" />
+         </padding>
+      </MenuButton>
+   </top>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" />
+   </padding>
+</BorderPane>

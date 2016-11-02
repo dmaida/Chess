@@ -227,16 +227,16 @@ public class Controller {
 
         for (int i = 0; i < row; i++) {
             RowConstraints row = new RowConstraints();
-            row.setMaxHeight(60);
-            row.setMinHeight(60);
+            row.setMaxHeight(70);
+            row.setMinHeight(70);
             gp.getRowConstraints().add(row);
 
         }
 
         for (int i = 0; i < col; i++) {
             ColumnConstraints column = new ColumnConstraints();
-            column.setMaxWidth(60);
-            column.setMinWidth(60);
+            column.setMaxWidth(70);
+            column.setMinWidth(70);
             gp.getColumnConstraints().add(column);
         }
 
@@ -246,17 +246,17 @@ public class Controller {
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
                 buttonMatrix[r][c] = new Button();
-                buttonMatrix[r][c].setPrefSize(60, 60);
+                buttonMatrix[r][c].setPrefSize(70, 70);
                 gp.add(buttonMatrix[r][c], c, r);
                 Button currentButton = buttonMatrix[r][c];
 
                 if ((r) % 2 == 0 && (c+1) % 2 == 0) {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: #808080");
+                    buttonMatrix[r][c].setStyle("-fx-background-color: grey");
                 }else if ((r+1) % 2 == 0 && (c) % 2 == 0) {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: #808080");
+                    buttonMatrix[r][c].setStyle("-fx-background-color: grey");
                 }
                 else {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: #ffffff");
+                    buttonMatrix[r][c].setStyle("-fx-background-color: white");
                 }
 
                 buttonMatrix[r][c].setOnMousePressed(new EventHandler<MouseEvent>() {
