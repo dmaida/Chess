@@ -6,41 +6,92 @@ public class King extends Piece {
         super(board, name, isWhite, y, x);
     }
 
-    public ArrayList<Board.Tile> getMoves(int currX, int currY) {
+    public boolean isValidMove(int currX, int currY, int toX, int toY) {
 
-        int x = currX;
-        int y = currY;
+        /*
+        if(currX == toX && currY == toY) return false;
 
-       // moveList = check();
-        //moveList = check();
+        if( (Math.abs(currX - toX) <= 1 && Math.abs(currY - toY) <= 1)){ // moving no more than 1 space
+            if ((!chessBoard.Tiles[toY][toX].isOccupied) |
+                    (chessBoard.Tiles[toY][toX].isOccupied && isWhite != chessBoard.Tiles[toY][toX].currentPiece.isWhite)
+                    *//*|(chessBoard.Tiles[toY][toX].isOccupied && isWhite != chessBoard.Tiles[toY][toX].currentPiece.isWhite)*//*) { // if space is not taken, or if taken and opposite color
+                chessBoard.Tiles[currY][currX].isOccupied = false; // remove piece off of board not 'check' isItSafe()
+                if (isItSafe(toX, toY)){
+                    chessBoard.Tiles[currY][currX].isOccupied = true; // put back on the board and return true
+                    isFirstMove = false;
+                    return true;
+                }
+                chessBoard.Tiles[currY][currX].isOccupied = true;
+            }
+        }
+        *//*if(canCastle(currX, currY, toX, toY)){
+            return true;
+        }
+
+
+
+        return false;
+        */
+
+        return true;
+    }
+
+    public ArrayList<Board.Tile> getMoves(int currX, int currY){
+
+        moveList = new ArrayList<>();
+
+        // check left side
+        if (currX > 0){
+            if (/*isItSafe(currX - 1, currY) &&*/ (!chessBoard.Tiles[currY][currX - 1].isOccupied | (chessBoard.Tiles[currY][currX - 1].isOccupied && isWhite != chessBoard.Tiles[currY][currX - 1].currentPiece.isWhite))) {
+                System.out.println("1");
+                moveList.add(chessBoard.Tiles[currY][currX - 1]);
+            }
+            if (/*isItSafe(currX - 1, currY - 1) && */currY > 0 && (!chessBoard.Tiles[currY - 1][currX - 1].isOccupied |  (chessBoard.Tiles[currY - 1][currX - 1].isOccupied && (isWhite != chessBoard.Tiles[currY - 1][currX - 1].currentPiece.isWhite)))){
+                System.out.println("2");
+                moveList.add(chessBoard.Tiles[currY - 1][currX - 1]);
+            }
+            if (/*isItSafe(currX - 1, currY + 1) && */currY < 7 && (!chessBoard.Tiles[currY][currX - 1].isOccupied | (chessBoard.Tiles[currY + 1][currX - 1].isOccupied && (isWhite != chessBoard.Tiles[currY + 1][currX - 1].currentPiece.isWhite)))){
+                System.out.println("3");
+                moveList.add(chessBoard.Tiles[currY + 1][currX - 1]);
+            }
+
+        }
+
+        // check right side
+        if (currX < 7){
+            if (/*isItSafe(currX + 1, currY) && */(!chessBoard.Tiles[currY][currX + 1].isOccupied | (chessBoard.Tiles[currY][currX + 1].isOccupied && isWhite != chessBoard.Tiles[currY][currX + 1].currentPiece.isWhite))) {
+                System.out.println("4");
+                moveList.add(chessBoard.Tiles[currY][currX + 1]);
+            }
+            if (/*isItSafe(currX + 1, currY - 1) && */currY > 0 && (!chessBoard.Tiles[currY - 1][currX + 1].isOccupied | (chessBoard.Tiles[currY - 1][currX + 1].isOccupied && (isWhite != chessBoard.Tiles[currY - 1][currX + 1].currentPiece.isWhite)))){
+                System.out.println("5");
+                moveList.add(chessBoard.Tiles[currY - 1][currX + 1]);
+            }
+            System.out.println("currX = "+ (int)(currX + 1));
+            System.out.println("currY = "+ (int)(currY + 1));
+            if (/*isItSafe(currX + 1, currY + 1) &&*/ currY < 7 && (!chessBoard.Tiles[currY + 1][currX + 1].isOccupied | (chessBoard.Tiles[currY + 1][currX + 1].isOccupied && (isWhite != chessBoard.Tiles[currY + 1][currX + 1].currentPiece.isWhite)))){
+                System.out.println("6");
+                moveList.add(chessBoard.Tiles[currY + 1][currX + 1]);
+            }
+
+        }
+
+        // check directly above
+        if (/*isItSafe(currX, currY - 1) &&*/ currY > 0 && (!chessBoard.Tiles[currY - 1][currX].isOccupied | (chessBoard.Tiles[currY - 1][currX].isOccupied && (isWhite != chessBoard.Tiles[currY - 1][currX].currentPiece.isWhite)))){
+            System.out.println("7");
+            moveList.add(chessBoard.Tiles[currY - 1][currX]);
+        }
+
+        // check directly below
+        if (/*isItSafe(currX, currY + 1) &&*/ currY < 7 && (!chessBoard.Tiles[currY + 1][currX].isOccupied | (chessBoard.Tiles[currY + 1][currX].isOccupied && (isWhite != chessBoard.Tiles[currY + 1][currX].currentPiece.isWhite)))){
+            System.out.println("8");
+            moveList.add(chessBoard.Tiles[currY + 1][currX]);
+        }
+
         return moveList;
     }
 
-    private ArrayList<Board.Tile> check() {
-        ArrayList<Board.Tile> dontMoveHere = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (chessBoard.Tiles[i][j].currentPiece != null && isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) {
-                    Piece p = chessBoard.Tiles[i][j].currentPiece;
-                    ArrayList<Board.Tile> move = p.moveList;
-                    if (move != null) {
-                        for (int k = 0; k < move.size(); k++) {
-
-                            dontMoveHere.add(move.get(k));
-                        }
-                    }
-                }
-            }
-        }
-        return dontMoveHere;
-    }
-
-    public boolean isValidMove(int currX, int currY, int toX, int toY) {
-
-      return true;
-    }
-
-    private boolean canCastle(int currX, int currY, int toX, int toY){
+    /*private boolean canCastle(int currX, int currY, int toX, int toY){
 
         // The following code allows for a player to castle to either one of his rooks
         // It assumes that the white pieces starts at the bottom and the black at the top.
@@ -89,17 +140,38 @@ public class King extends Piece {
         }
         return false;
 
-    }
+    }*/
 
     private boolean isItSafe(int desiredX, int desiredY){
 
-        if(knightCanAttack(desiredX, desiredY) | straightAttack(desiredX, desiredY) | diagnalAttack(desiredX, desiredY))
+        boolean test = false;
+
+        if (test = diagnalAttack(desiredX, desiredY)) {
+            if (desiredX == 1 && desiredY == 1){
+                System.out.println("test = "+ test);
+            }
+            System.out.println("diagnal");
             return false;
+        }
+
+        if(knightCanAttack(desiredX, desiredY)) {
+            System.out.println("knight");
+            return false;
+        }
+        if (straightAttack(desiredX, desiredY)) {
+            System.out.println("straight");
+            return false;
+        }
+
 
         return true;
     }
 
     private boolean diagnalAttack(int desiredX, int desiredY){
+
+        if (desiredX < 0 | desiredX > 7 | desiredY < 0 | desiredY > 7){
+            return false;
+        }
 
         int tempX = desiredX + 1;
         int tempY = desiredY + 1;
@@ -158,6 +230,10 @@ public class King extends Piece {
 
     private boolean straightAttack(int desiredX, int desiredY){
 
+        if (desiredX < 0 | desiredX > 7 | desiredY < 0 | desiredY > 7){
+            return false;
+        }
+
         int temp = desiredY + 1;
 
         while((temp >= 0 && temp < 8) && !chessBoard.Tiles[temp][desiredX].isOccupied ){
@@ -210,6 +286,10 @@ public class King extends Piece {
     }
 
     private boolean knightCanAttack(int desiredX, int desiredY){
+
+        if (desiredX < 0 | desiredX > 7 | desiredY < 0 | desiredY > 7){
+            return false;
+        }
 
         int tempX = desiredX + 2;
         int tempY = desiredY + 1;

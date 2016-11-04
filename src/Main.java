@@ -16,6 +16,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("chess.fxml"));
         primaryStage.setTitle("Chess");
         primaryStage.setScene(new Scene(root, 650, 650));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

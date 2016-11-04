@@ -6,9 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -20,7 +18,10 @@ public class Controller {
     @FXML
     private GridPane gp;
     @FXML
-    public Button[][] buttonMatrix;
+    private Button[][] buttonMatrix;
+
+    @FXML
+    private BorderPane bp;
 
     private final int row = 8;
     private final int col = 8;
@@ -218,6 +219,18 @@ public class Controller {
     }
 
     public void makeButtons ( ) {
+
+        int width = 1500;
+        int height = 1000;
+
+        Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop.jpg"), width, height, true, true);
+
+        BackgroundImage backgroundOne= new BackgroundImage(desktopBG,
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        bp.setBackground(new Background(backgroundOne));
+
 
         gp.getColumnConstraints().removeAll(gp.getColumnConstraints());
         gp.getRowConstraints().removeAll(gp.getRowConstraints());
