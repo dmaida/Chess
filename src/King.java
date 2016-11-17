@@ -6,6 +6,9 @@ public class King extends Piece {
         super(board, name, isWhite, y, x);
     }
 
+    private int globalX;
+    private int globalY;
+
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
 
         if (currX == toX && currY == toY) return false;
@@ -22,6 +25,8 @@ public class King extends Piece {
     public ArrayList<Board.Tile> getMoves(int currX, int currY){
 
         moveList = new ArrayList<>();
+        globalX = currX;
+        globalY = currY;
 
         // check left side
         if (currX > 0){
@@ -73,80 +78,58 @@ public class King extends Piece {
         return moveList;
     }
 
-    /*private boolean canCastle(int currX, int currY, int toX, int toY){
+    private boolean isItSafe(int desiredX, int desiredY){
 
-        // The following code allows for a player to castle to either one of his rooks
-        // It assumes that the white pieces starts at the bottom and the black at the top.
-        // Assumed initial location for Black King[r][c] = [3][0]
-        // Assumed initial location for White King[r][c] = [4][7]
+        chessBoard.Tiles[globalY][globalX].isOccupied = false;
 
-        int xDir = 1;
-
-        if (!isWhite){
-            xDir = -1;
+        if (pawnAttack(desiredX, desiredY)){
+            chessBoard.Tiles[globalY][globalX].isOccupied = true;
+            return false;
         }
 
-        if (isFirstMove && chessBoard.Tiles[currY][currX + (xDir * 3)].isOccupied &&
-                chessBoard.Tiles[currY][currX + (xDir * 3)].getPiece().isFirstMove &&
-                !chessBoard.Tiles[currY][currX + (xDir * 2)].isOccupied &&
-                !chessBoard.Tiles[currY][currX + (xDir * 1)].isOccupied &&
-                (currY == toY) && (toX == currX + (xDir * 2))){
-            if (isItSafe(toX, toY)) {
-                chessBoard.Tiles[currY][currX + (xDir * 1)].currentPiece = chessBoard.Tiles[currY][currX + (xDir * 3)].getPiece();
-                chessBoard.Tiles[currY][currX + (xDir * 1)].isOccupied = true;
-
-                chessBoard.Tiles[currY][currX + (xDir * 3)].isOccupied = false;
-                chessBoard.Tiles[currY][currX + (xDir * 3)].currentPiece = null;
-
-                isFirstMove = false;
-                return true;
-            }
+        if (diagnalAttack(desiredX, desiredY)) {
+            chessBoard.Tiles[globalY][globalX].isOccupied = true;
+            return false;
         }
-        if (isFirstMove &&
-                chessBoard.Tiles[currY][currX + (xDir * -4)].isOccupied &&
-                chessBoard.Tiles[currY][currX + (xDir * -4)].getPiece().isFirstMove &&
-                !chessBoard.Tiles[currY][currX + (xDir * -3)].isOccupied &&
-                !chessBoard.Tiles[currY][currX + (xDir * -2)].isOccupied &&
-                !chessBoard.Tiles[currY][currX + (xDir * -1)].isOccupied &&
-                (currY == toY) && (toX == currX + (xDir * -2))){
-            if (isItSafe(toX, toY)) {
-                chessBoard.Tiles[currY][currX + (xDir * -1)].currentPiece = chessBoard.Tiles[currY][currX + (xDir * -4)].getPiece();
-                chessBoard.Tiles[currY][currX + (xDir * -1)].isOccupied = true;
 
-                chessBoard.Tiles[currY][currX + (xDir * -4)].isOccupied = false;
-                chessBoard.Tiles[currY][currX + (xDir * -4)].currentPiece = null;
+        if (straightAttack(desiredX, desiredY)) {
+            chessBoard.Tiles[globalY][globalX].isOccupied = true;
+            return false;
+        }
 
-                isFirstMove = false;
+        chessBoard.Tiles[globalY][globalX].isOccupied = true;
+        return true;
+    }
+
+    private boolean pawnAttack(int desiredX, int desiredY){
+        if (isWhite && chessBoard.Tiles[desiredY-1][desiredX-1].isOccupied && chessBoard.Tiles[desiredY-1][desiredX-1].getPiece().name.compareTo("b_Pawn") == 0) {
+            return true;
+        }
+        if (isWhite && chessBoard.Tiles[desiredY-1][desiredX+1].isOccupied && chessBoard.Tiles[desiredY-1][desiredX+1].getPiece().name.compareTo("b_Pawn") == 0) {
+            return true;
+        }
+        if (!isWhite && chessBoard.Tiles[desiredY+1][desiredX-1].isOccupied && chessBoard.Tiles[desiredY+1][desiredX-1].getPiece().name.compareTo("w_Pawn") == 0) {
+            return true;
+        }
+        if (!isWhite && chessBoard.Tiles[desiredY+1][desiredX+1].isOccupied && chessBoard.Tiles[desiredY+1][desiredX+1].getPiece().name.compareTo("w_Pawn") == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkOpponentMove(int currX, int currY, int i, int j) {
+
+        if (chessBoard.Tiles[i][j].isOccupied && (chessBoard.Tiles[i][j].getPiece().name.compareTo("b_Pawn") == 0 | chessBoard.Tiles[i][j].getPiece().name.compareTo("w_Pawn") == 0)){
+            return false;
+        }
+
+        ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
+        for (int k = 0; k < opponentList.size(); k++) {
+            if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
                 return true;
             }
         }
         return false;
-
-    }*/
-
-    private boolean isItSafe(int desiredX, int desiredY){
-
-        if (isWhite && chessBoard.Tiles[desiredY-1][desiredX-1].isOccupied && chessBoard.Tiles[desiredY-1][desiredX-1].getPiece().name.compareTo("b_Pawn") == 0) {
-            return false;
-        }
-        if (isWhite && chessBoard.Tiles[desiredY-1][desiredX+1].isOccupied && chessBoard.Tiles[desiredY-1][desiredX+1].getPiece().name.compareTo("b_Pawn") == 0) {
-            return false;
-        }
-        if (!isWhite && chessBoard.Tiles[desiredY+1][desiredX-1].isOccupied && chessBoard.Tiles[desiredY+1][desiredX-1].getPiece().name.compareTo("w_Pawn") == 0) {
-            return false;
-        }
-        if (!isWhite && chessBoard.Tiles[desiredY+1][desiredX+1].isOccupied && chessBoard.Tiles[desiredY+1][desiredX+1].getPiece().name.compareTo("w_Pawn") == 0) {
-            return false;
-        }
-
-        if (diagnalAttack(desiredX, desiredY) == true) {
-            System.out.println("NOT SAFE");
-
-            return false;
-        }
-        System.out.println("SAFE");
-
-        return true;
     }
 
     private boolean diagnalAttack(int currX, int currY){
@@ -159,16 +142,10 @@ public class King extends Piece {
             j--;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
 
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        return true;
-                    }
-                }
+                return checkOpponentMove(currX, currY, i, j);
             }
             else if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-
         }
 
         j = currX;
@@ -179,12 +156,7 @@ public class King extends Piece {
             j++;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
 
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        return true;
-                    }
-                }
+                return checkOpponentMove(currX, currY, i, j);
             }
             else if (chessBoard.Tiles[i][j].isOccupied)
                 break;
@@ -199,12 +171,7 @@ public class King extends Piece {
             j++;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
 
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        return true;
-                    }
-                }
+                return checkOpponentMove(currX, currY, i, j);
             }
             else if (chessBoard.Tiles[i][j].isOccupied)
                 break;
@@ -220,26 +187,60 @@ public class King extends Piece {
 
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
 
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        return true;
-                    }
-                }
+                return checkOpponentMove(currX, currY, i, j);
             }
             else if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-
         }
         return false;
     }
 
 
-    private boolean straightAttack(int desiredX, int desiredY){
+    private boolean straightAttack(int currX, int currY){
 
+        System.out.println("reached straight attack");
+        int x = currX;
+        int y = currY;
+        System.out.println("x = " + currX + " y = "+currY);
+
+
+        for (int i = y; i < 8; i++) {
+            if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)) {
+                System.out.println("opponent Found For Loop 1");
+                return checkOpponentMove(currX, currY, i, x);
+            }
+            else if (chessBoard.Tiles[i][x].isOccupied)
+                break;
+        }
+        for (int i=y; i>=0; i--) {
+            if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)) {
+                System.out.println("opponent Found For Loop 2");
+                return checkOpponentMove(currX, currY, i, x);
+            }
+            else if (chessBoard.Tiles[i][x].isOccupied)
+                break;
+        }
+
+        for (int j = x; j < 8; j++) {
+            System.out.println("----------------------------------------For Loop 3");
+            if (chessBoard.Tiles[y][j].isOccupied && (isWhite != chessBoard.Tiles[y][j].currentPiece.isWhite)) {
+                System.out.println("opponent Found For Loop 3");
+                return checkOpponentMove(currX, currY, y, j);
+            }
+            else if (chessBoard.Tiles[y][j].isOccupied)
+                break;
+        }
+
+        for (int j=x; j>=0; j--) {
+            System.out.println("----------------------------------------For Loop 4");
+            if (chessBoard.Tiles[y][j].isOccupied && (isWhite != chessBoard.Tiles[y][j].currentPiece.isWhite)) {
+                System.out.println("opponent Found For Loop 4");
+                return checkOpponentMove(currX, currY, y, j);
+            }
+            else if (chessBoard.Tiles[y][j].isOccupied)
+                break;
+        }
         return false;
-
     }
 
     private boolean knightCanAttack(int desiredX, int desiredY) {
