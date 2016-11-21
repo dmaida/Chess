@@ -123,7 +123,7 @@ public class King extends Piece {
         chessBoard.Tiles[globalY][globalX].currentPiece = null;
         chessBoard.Tiles[globalY][globalX].isOccupied = false;
 
-        if (pawnAttack(desiredX, desiredY) | diagnalAttack(desiredX, desiredY) | straightAttack(desiredX, desiredY)){
+        if (pawnAttack(desiredX, desiredY) | diagnalAttack(desiredX, desiredY) | straightAttack(desiredX, desiredY) | knightCanAttack(desiredX, desiredY)){
             returnVal = false;
         }
 
@@ -322,8 +322,75 @@ public class King extends Piece {
         return false;
     }
 
-    private boolean knightCanAttack(int desiredX, int desiredY) {
+    private boolean knightCanAttack(int currX, int currY) {
 
+        int x = currX;
+        int y = currY;
+
+        if ((y>1 && x>0) && (chessBoard.Tiles[y-2][x-1].isOccupied && (isWhite != chessBoard.Tiles[y-2][x-1].currentPiece.isWhite))){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-2][x-1].getPiece().getMoves(x-1, y-2);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
+        if ((y>1 && x<7) && (chessBoard.Tiles[y-2][x+1].isOccupied && (isWhite != chessBoard.Tiles[y-2][x+1].currentPiece.isWhite))){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-2][x+1].getPiece().getMoves(x+1, y-2);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
+        if ((y>0 && x>1) && (chessBoard.Tiles[y-1][x-2].isOccupied && (isWhite != chessBoard.Tiles[y-1][x-2].currentPiece.isWhite))){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-1][x-2].getPiece().getMoves(x-2, y-1);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
+        if ((y>0 && x<6) && (chessBoard.Tiles[y-1][x+2].isOccupied && (isWhite != chessBoard.Tiles[y-1][x+2].currentPiece.isWhite))){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-1][x+2].getPiece().getMoves(x+2, y-1);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
+        if ((y<7 && x<6) && (chessBoard.Tiles[y+1][x+2].isOccupied && (isWhite != chessBoard.Tiles[y+1][x+2].currentPiece.isWhite))){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+1][x+2].getPiece().getMoves(x+2, y+1);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
+        if ((y<6 && x<7) && (chessBoard.Tiles[y+2][x+1].isOccupied && (isWhite != chessBoard.Tiles[y+2][x+1].currentPiece.isWhite))){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+2][x+1].getPiece().getMoves(x+1, y+2);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
+        if ((y<6 && x>0) && (chessBoard.Tiles[y+2][x-1].isOccupied && (isWhite != chessBoard.Tiles[y+2][x-1].currentPiece.isWhite))){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+2][x-1].getPiece().getMoves(x-1, y+2);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
+        if ((y<7 && x>1) && chessBoard.Tiles[y+1][x-2].isOccupied && (isWhite != chessBoard.Tiles[y+1][x-2].currentPiece.isWhite)){
+            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+1][x-2].getPiece().getMoves(x-2, y+1);
+            for (int k = 0; k < opponentList.size(); k++) {
+                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }
