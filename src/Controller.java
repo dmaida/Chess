@@ -2,16 +2,19 @@ import javafx.collections.MapChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.List;
+import java.util.Optional;
 
 public class Controller {
 
@@ -28,6 +31,23 @@ public class Controller {
     private Board B;
     private boolean firstClick = true;
     private boolean secondClick = false;
+
+    int height = 50;
+    int width = 50;
+
+    Image w_bishop = new Image(getClass().getResourceAsStream("gui/w_bishop.png"), width, height, true, true);
+    Image w_king = new Image(getClass().getResourceAsStream("gui/w_king.png"), width, height, true, true);
+    Image w_knight = new Image(getClass().getResourceAsStream("gui/w_knight.png"), width, height, true, true);
+    Image w_pawn = new Image(getClass().getResourceAsStream("gui/w_pawn.png"), width, height, true, true);
+    Image w_queen = new Image(getClass().getResourceAsStream("gui/w_queen.png"), width, height, true, true);
+    Image w_rook = new Image(getClass().getResourceAsStream("gui/w_rook.png"), width, height, true, true);
+
+    Image b_bishop = new Image(getClass().getResourceAsStream("gui/b_bishop.png"), width, height, true, true);
+    Image b_king = new Image(getClass().getResourceAsStream("gui/b_king.png"), width, height, true, true);
+    Image b_knight = new Image(getClass().getResourceAsStream("gui/b_knight.png"), width, height, true, true);
+    Image b_pawn = new Image(getClass().getResourceAsStream("gui/b_pawn.png"), width, height, true, true);
+    Image b_queen = new Image(getClass().getResourceAsStream("gui/b_queen.png"), width, height, true, true);
+    Image b_rook = new Image(getClass().getResourceAsStream("gui/b_rook.png"), width, height, true, true);
 
     @FXML
     private void initialize() {
@@ -128,65 +148,47 @@ public class Controller {
     }
 
     private void updateView() {
-
-        int height = 50;
-        int width = 50;
-
-        Image w_bishop = new Image(getClass().getResourceAsStream("gui/w_bishop.png"), width, height, true, true);
-        Image w_king = new Image(getClass().getResourceAsStream("gui/w_king.png"), width, height, true, true);
-        Image w_knight = new Image(getClass().getResourceAsStream("gui/w_knight.png"), width, height, true, true);
-        Image w_pawn = new Image(getClass().getResourceAsStream("gui/w_pawn.png"), width, height, true, true);
-        Image w_queen = new Image(getClass().getResourceAsStream("gui/w_queen.png"), width, height, true, true);
-        Image w_rook = new Image(getClass().getResourceAsStream("gui/w_rook.png"), width, height, true, true);
-
-        Image b_bishop = new Image(getClass().getResourceAsStream("gui/b_bishop.png"), width, height, true, true);
-        Image b_king = new Image(getClass().getResourceAsStream("gui/b_king.png"), width, height, true, true);
-        Image b_knight = new Image(getClass().getResourceAsStream("gui/b_knight.png"), width, height, true, true);
-        Image b_pawn = new Image(getClass().getResourceAsStream("gui/b_pawn.png"), width, height, true, true);
-        Image b_queen = new Image(getClass().getResourceAsStream("gui/b_queen.png"), width, height, true, true);
-        Image b_rook = new Image(getClass().getResourceAsStream("gui/b_rook.png"), width, height, true, true);
-
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 if (B.Tiles[i][j].currentPiece != null) {
                     Piece p = B.Tiles[i][j].getPiece();
                     String name = p.name;
-                   if ((name.compareTo("w_Bishop") == 0)) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(w_bishop));
+                    if ((name.compareTo("w_Bishop") == 0)) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(w_bishop));
                     }
                     else if (name.compareTo("w_King") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(w_king));
-                   }
-                   else if (name.compareTo("w_Knight") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(w_knight));
-                   }
-                   else if (name.compareTo("w_Pawn") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(w_pawn));
-                   }
-                   else if (name.compareTo("w_Queen") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(w_queen));
-                   }
-                   else if (name.compareTo("w_Rook") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(w_rook));
-                   }
-                   else if ((name.compareTo("b_Bishop") == 0)) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(b_bishop));
-                   }
-                   else if (name.compareTo("b_King") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(b_king));
-                   }
-                   else if (name.compareTo("b_Knight") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(b_knight));
-                   }
-                   else if (name.compareTo("b_Pawn") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(b_pawn));
-                   }
-                   else if (name.compareTo("b_Queen") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(b_queen));
-                   }
-                   else if (name.compareTo("b_Rook") == 0) {
-                       buttonMatrix[i][j].setGraphic(new ImageView(b_rook));
-                   }
+                        buttonMatrix[i][j].setGraphic(new ImageView(w_king));
+                    }
+                    else if (name.compareTo("w_Knight") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(w_knight));
+                    }
+                    else if (name.compareTo("w_Pawn") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(w_pawn));
+                    }
+                    else if (name.compareTo("w_Queen") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(w_queen));
+                    }
+                    else if (name.compareTo("w_Rook") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(w_rook));
+                    }
+                    else if ((name.compareTo("b_Bishop") == 0)) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(b_bishop));
+                    }
+                    else if (name.compareTo("b_King") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(b_king));
+                    }
+                    else if (name.compareTo("b_Knight") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(b_knight));
+                    }
+                    else if (name.compareTo("b_Pawn") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(b_pawn));
+                    }
+                    else if (name.compareTo("b_Queen") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(b_queen));
+                    }
+                    else if (name.compareTo("b_Rook") == 0) {
+                        buttonMatrix[i][j].setGraphic(new ImageView(b_rook));
+                    }
                 }
                 else {
                     buttonMatrix[i][j].setGraphic(null);
@@ -218,6 +220,69 @@ public class Controller {
         }
     }
 
+    private boolean pawnReachedEnd() {
+        for (int i = 0; i < col; i++) {
+            if (B.Tiles[0][i].isOccupied && B.Tiles[0][i].currentPiece.name.compareTo("w_Pawn") == 0) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < col; i++) {
+            if (B.Tiles[7][i].isOccupied && B.Tiles[7][i].currentPiece.name.compareTo("b_Pawn") == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void choosePiece(int x, int y) {
+        List<String> choices = new ArrayList<>();
+        choices.add("Bishop");
+        choices.add("Knight");
+        choices.add("Queen");
+        choices.add("Rook");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Pieces", choices);
+
+        dialog.setTitle("Chess");
+        dialog.setHeaderText("Pawn reached opposite side.");
+        dialog.setContentText("Choose your piece:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+
+            if (result.get().contains("Bishop")) {
+                if (B.Tiles[y][x].getPiece().isWhite) {
+                    B.Tiles[y][x].currentPiece = new Bishop(B, "w_Bishop", true, y, x);
+                } else {
+                    B.Tiles[y][x].currentPiece = new Bishop(B, "b_Bishop", false, y, x);
+                }
+            }
+            if (result.get().contains("Knight")) {
+                if (B.Tiles[y][x].getPiece().isWhite) {
+                    B.Tiles[y][x].currentPiece = new Knight(B, "w_Knight", true, y, x);
+                } else {
+                    B.Tiles[y][x].currentPiece = new Knight(B, "b_Knight", false, y, x);
+                }
+            }
+            if (result.get().contains("Queen")) {
+                if (B.Tiles[y][x].getPiece().isWhite) {
+                    B.Tiles[y][x].currentPiece = new Queen(B, "w_Queen", true, y, x);
+                } else {
+                    B.Tiles[y][x].currentPiece = new Queen(B, "b_Queen", false, y, x);
+                }
+            }
+
+            if (result.get().contains("Rook")) {
+                if (B.Tiles[y][x].getPiece().isWhite) {
+                    B.Tiles[y][x].currentPiece = new Rook(B, "w_Rook", true, y, x);
+                } else {
+                    B.Tiles[y][x].currentPiece = new Rook(B, "b_Rook", false, y, x);
+                }
+            }
+        }
+    }
+
     public void makeButtons ( ) {
 
         int width = 1500;
@@ -228,16 +293,12 @@ public class Controller {
         BackgroundImage backgroundOne= new BackgroundImage(desktopBG,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-
         bp.setBackground(new Background(backgroundOne));
-
 
         gp.getColumnConstraints().removeAll(gp.getColumnConstraints());
         gp.getRowConstraints().removeAll(gp.getRowConstraints());
         gp.getChildren().removeAll(gp.getChildren());
         buttonMatrix = new Button[row][col];
-
-
         for (int i = 0; i < row; i++) {
             RowConstraints row = new RowConstraints();
             row.setMaxHeight(70);
@@ -245,7 +306,6 @@ public class Controller {
             gp.getRowConstraints().add(row);
 
         }
-
         for (int i = 0; i < col; i++) {
             ColumnConstraints column = new ColumnConstraints();
             column.setMaxWidth(70);
@@ -286,7 +346,6 @@ public class Controller {
                             Main.cY = r;
                             drawMoves(Main.getListOfMoves(B));
                         } else if (secondClick){
-
                             firstClick = true;
                             secondClick = false;
                             int row = gp.getRowIndex(currentButton);
@@ -295,10 +354,11 @@ public class Controller {
                             Main.nY = row;
                             eraseMoves();
                             Main.makeMove(B);
-
+                        }
+                        if (pawnReachedEnd()) {
+                            choosePiece(c, r);
                         }
                         updateView();
-
                     }
                 });
             }
