@@ -286,6 +286,7 @@ public class Controller {
                             Main.cY = r;
                             drawMoves(Main.getListOfMoves(B));
                         } else if (secondClick){
+
                             firstClick = true;
                             secondClick = false;
                             int row = gp.getRowIndex(currentButton);
@@ -294,6 +295,7 @@ public class Controller {
                             Main.nY = row;
                             eraseMoves();
                             Main.makeMove(B);
+
                         }
                         updateView();
 

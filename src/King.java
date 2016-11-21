@@ -75,6 +75,37 @@ public class King extends Piece {
             moveList.add(chessBoard.Tiles[currY + 1][currX]);
         }
 
+        moveList = castleMove(moveList);
+
+        return moveList;
+    }
+
+    private ArrayList castleMove(ArrayList moveList){
+
+        int dir = 1;
+        if (!isWhite){
+            dir = -1;
+        }
+
+        if (isItSafe(globalX, globalY) && isFirstMove){ //If King is not checked && King's first move
+            if (!chessBoard.Tiles[globalY][globalX + (1 * dir)].isOccupied &&
+                    !chessBoard.Tiles[globalY][globalX + (2 * dir)].isOccupied &&
+                    chessBoard.Tiles[globalY][globalX + (3 * dir)].isOccupied &&
+                    chessBoard.Tiles[globalY][globalX + (3 * dir)].getPiece().isFirstMove &&
+                    isItSafe(globalX + (2 * dir), globalY)){ // If spaces in between King the Rook are free and it is the Rook's first turn
+                moveList.add(chessBoard.Tiles[globalY][globalX + (2 * dir)]);
+            }
+            if (!chessBoard.Tiles[globalY][globalX - (1 * dir)].isOccupied &&
+                    !chessBoard.Tiles[globalY][globalX - (2 * dir)].isOccupied &&
+                    !chessBoard.Tiles[globalY][globalX - (3 * dir)].isOccupied &&
+                    chessBoard.Tiles[globalY][globalX - (4 * dir)].isOccupied &&
+                    chessBoard.Tiles[globalY][globalX - (4 * dir)].getPiece().isFirstMove &&
+                    isItSafe(globalX - (2 * dir) , globalY)){
+                moveList.add(chessBoard.Tiles[globalY][globalX - (2 * dir)]);
+            }
+
+        }
+
         return moveList;
     }
 
@@ -140,16 +171,9 @@ public class King extends Piece {
 
     private boolean checkOpponentMove(int currX, int currY, int oppY, int oppX) {
 
-        if (chessBoard.Tiles[oppY][oppX].isOccupied && (chessBoard.Tiles[oppY][oppX].getPiece().name.compareTo("b_Pawn") == 0 | chessBoard.Tiles[oppY][oppX].getPiece().name.compareTo("w_Pawn") == 0)){
+        if (chessBoard.Tiles[oppY][oppX].isOccupied && chessBoard.Tiles[oppY][oppX].getPiece().name.contains("Pawn")){
             return false;
         }
-        /*ArrayList<Board.Tile> opponentList = chessBoard.Tiles[oppY][oppX].getPiece().getMoves(oppX, oppY);
-        for (int i = 0; i < opponentList.size(); i++) {
-            if (opponentList.get(i).y == currY && opponentList.get(i).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                return true;
-            }
-        }*/
-
         return true;
     }
     private boolean diagnalAttack(int currX, int currY){
