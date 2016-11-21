@@ -168,6 +168,13 @@ public class King extends Piece {
 
         return false;
     }
+    private boolean otherKingAttack(int currY, int currX, int i, int j){
+        if ((Math.abs(currY - i) <= 1) && (Math.abs(currX - j) <= 1)){
+            return true;
+        }
+
+        return false;
+    }
 
     private boolean checkOpponentMove(int currX, int currY, int oppY, int oppX) {
 
@@ -185,10 +192,18 @@ public class King extends Piece {
             i++;
             j--;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                if (chessBoard.Tiles[i][j].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY, currX, i, j)) {
                         return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            return true;
+                        }
                     }
                 }
             }
@@ -203,10 +218,18 @@ public class King extends Piece {
             i--;
             j++;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                if (chessBoard.Tiles[i][j].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY, currX, i, j)) {
                         return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            return true;
+                        }
                     }
                 }
             }
@@ -222,10 +245,18 @@ public class King extends Piece {
             i++;
             j++;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                if (chessBoard.Tiles[i][j].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY, currX, i, j)) {
                         return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            return true;
+                        }
                     }
                 }
             }
@@ -242,10 +273,18 @@ public class King extends Piece {
             j--;
 
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                if (chessBoard.Tiles[i][j].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY, currX, i, j)) {
                         return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][j].getPiece().getMoves(j, i);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            return true;
+                        }
                     }
                 }
             }
@@ -261,11 +300,19 @@ public class King extends Piece {
 
         for (int j = x + 1; j < 8; j++) {
             if (chessBoard.Tiles[y][j].isOccupied && (isWhite != chessBoard.Tiles[y][j].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[currY][j].getPiece().getMoves(j, currY);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        if (checkOpponentMove(currX,currY, currY, j)) {
-                            return true;
+                if (chessBoard.Tiles[y][j].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY,currX,y,j)){
+                        return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[currY][j].getPiece().getMoves(j, currY);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            if (checkOpponentMove(currX, currY, currY, j)) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -276,11 +323,19 @@ public class King extends Piece {
 
         for (int j = x - 1; j >= 0; j--) {
             if (chessBoard.Tiles[y][j].isOccupied && (isWhite != chessBoard.Tiles[y][j].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[currY][j].getPiece().getMoves(j, currY);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        if (checkOpponentMove(currX,currY, currY, j)) {
-                            return true;
+                if (chessBoard.Tiles[y][j].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY,currX,y,j)){
+                        return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[currY][j].getPiece().getMoves(j, currY);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            if (checkOpponentMove(currX, currY, currY, j)) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -291,11 +346,19 @@ public class King extends Piece {
 
         for (int i = y + 1; i < 8; i++) {
             if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][currX].getPiece().getMoves(currX, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        if (checkOpponentMove(currX,currY, i, currX)) {
-                            return true;
+                if (chessBoard.Tiles[i][x].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY,currX,i,x)){
+                        return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][currX].getPiece().getMoves(currX, i);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            if (checkOpponentMove(currX, currY, i, currX)) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -305,11 +368,19 @@ public class King extends Piece {
         }
         for (int i = y - 1; i >= 0; i--) {
             if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)) {
-                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][currX].getPiece().getMoves(currX, i);
-                for (int k = 0; k < opponentList.size(); k++) {
-                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                        if (checkOpponentMove(currX,currY, i, currX)) {
-                            return true;
+                if (chessBoard.Tiles[i][x].getPiece().name.contains("King")){
+                    if (otherKingAttack(currY,currX,i,x)){
+                        return true;
+                    }
+                    else break;
+                }
+                else {
+                    ArrayList<Board.Tile> opponentList = chessBoard.Tiles[i][currX].getPiece().getMoves(currX, i);
+                    for (int k = 0; k < opponentList.size(); k++) {
+                        if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+                            if (checkOpponentMove(currX, currY, i, currX)) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -328,66 +399,122 @@ public class King extends Piece {
         int y = currY;
 
         if ((y>1 && x>0) && (chessBoard.Tiles[y-2][x-1].isOccupied && (isWhite != chessBoard.Tiles[y-2][x-1].currentPiece.isWhite))){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-2][x-1].getPiece().getMoves(x-1, y-2);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y-2][x-1].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y-2, x -1)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y - 2][x - 1].getPiece().getMoves(x - 1, y - 2);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
         if ((y>1 && x<7) && (chessBoard.Tiles[y-2][x+1].isOccupied && (isWhite != chessBoard.Tiles[y-2][x+1].currentPiece.isWhite))){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-2][x+1].getPiece().getMoves(x+1, y-2);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y-2][x+1].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y-2, x + 1)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y - 2][x + 1].getPiece().getMoves(x + 1, y - 2);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
         if ((y>0 && x>1) && (chessBoard.Tiles[y-1][x-2].isOccupied && (isWhite != chessBoard.Tiles[y-1][x-2].currentPiece.isWhite))){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-1][x-2].getPiece().getMoves(x-2, y-1);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y-1][x-2].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y - 1, x - 2)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y - 1][x - 2].getPiece().getMoves(x - 2, y - 1);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
         if ((y>0 && x<6) && (chessBoard.Tiles[y-1][x+2].isOccupied && (isWhite != chessBoard.Tiles[y-1][x+2].currentPiece.isWhite))){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y-1][x+2].getPiece().getMoves(x+2, y-1);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y - 1][x + 2].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y - 1, x + 2)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y - 1][x + 2].getPiece().getMoves(x + 2, y - 1);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
         if ((y<7 && x<6) && (chessBoard.Tiles[y+1][x+2].isOccupied && (isWhite != chessBoard.Tiles[y+1][x+2].currentPiece.isWhite))){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+1][x+2].getPiece().getMoves(x+2, y+1);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y + 1][x + 2].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y + 1, x + 2)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y + 1][x + 2].getPiece().getMoves(x + 2, y + 1);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
         if ((y<6 && x<7) && (chessBoard.Tiles[y+2][x+1].isOccupied && (isWhite != chessBoard.Tiles[y+2][x+1].currentPiece.isWhite))){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+2][x+1].getPiece().getMoves(x+1, y+2);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y+2][x+1].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y + 2, x + 1)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y + 2][x + 1].getPiece().getMoves(x + 1, y + 2);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
         if ((y<6 && x>0) && (chessBoard.Tiles[y+2][x-1].isOccupied && (isWhite != chessBoard.Tiles[y+2][x-1].currentPiece.isWhite))){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+2][x-1].getPiece().getMoves(x-1, y+2);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y + 2][x - 1].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y + 2, x - 1)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y + 2][x - 1].getPiece().getMoves(x - 1, y + 2);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
         if ((y<7 && x>1) && chessBoard.Tiles[y+1][x-2].isOccupied && (isWhite != chessBoard.Tiles[y+1][x-2].currentPiece.isWhite)){
-            ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y+1][x-2].getPiece().getMoves(x-2, y+1);
-            for (int k = 0; k < opponentList.size(); k++) {
-                if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+            if (chessBoard.Tiles[y + 1][x - 2].getPiece().name.contains("King")){
+                if (otherKingAttack(currY, currX, y + 1, x - 2)){
                     return true;
+                }
+            }
+            else {
+                ArrayList<Board.Tile> opponentList = chessBoard.Tiles[y + 1][x - 2].getPiece().getMoves(x - 2, y + 1);
+                for (int k = 0; k < opponentList.size(); k++) {
+                    if (opponentList.get(k).y == currY && opponentList.get(k).x == currX) {
+                        return true;
+                    }
                 }
             }
         }
