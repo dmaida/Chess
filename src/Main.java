@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     public static int cX, cY, nX, nY;
+    public static boolean whiteTurn = true;
+    public static boolean blackTurn = false;
 
 
     @Override
@@ -51,20 +53,68 @@ public class Main extends Application {
         }
     }
 
-    public static void makeMove(Board B) {
+    public static void check(Board B) {
+        King blackKing;
+        King whiteKing;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (B.Tiles[i][j].isOccupied) {
+                    if (B.Tiles[i][j].getPiece().name.compareTo("w_King") == 0) {
+                        whiteKing = (King) B.Tiles[i][j].getPiece();
+
+                        if (whiteKing.getMoves(j, i).size() == 0 && !whiteKing.isItSafe(j, i) ) {
+                            System.out.println("Black won");
+                        }
+
+                    }
+                    else if (B.Tiles[i][j].getPiece().name.compareTo("b_King") == 0) {
+                        blackKing = (King) B.Tiles[i][j].getPiece();
+
+                        if (blackKing.getMoves(j, i).size() == 0 && !blackKing.isItSafe(j, i) ) {
+                            System.out.println("White won");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean takeTurn(Board B) {
 
         Piece p = B.Tiles[cY][cX].getPiece();
 
-        castling(B, p);
+        if (whiteTurn && p.isWhite ) {
+            if (makeMove(B)) {
+                whiteTurn = !whiteTurn;
+                blackTurn = !blackTurn;
+            }
+        }
+        else if (blackTurn && !p.isWhite){
+            if (makeMove(B)) {
+                whiteTurn = !whiteTurn;
+                blackTurn = !blackTurn;
+            }
+        }
+        return false;
+    }
+
+    public static boolean makeMove(Board B) {
+
+        Piece p = B.Tiles[cY][cX].getPiece();
 
         if(p.isValidMove(cX,cY,nX,nY)){
+            if (p.name.contains("King")){
+                castling(B, p);
+            }
             B.Tiles[cY][cX].isOccupied = false;
             B.Tiles[cY][cX].currentPiece = null;
 
             B.Tiles[nY][nX].isOccupied = true;
+            //p.isFirstMove = false;
             B.Tiles[nY][nX].currentPiece = p;
-
+            return true;
         }
+        return false;
     }
 
     public static void main(String[] args) {launch(args);

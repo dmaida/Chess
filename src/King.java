@@ -109,7 +109,7 @@ public class King extends Piece {
         return moveList;
     }
 
-    private boolean isItSafe(int desiredX, int desiredY){
+    public boolean isItSafe(int desiredX, int desiredY){
         Piece p = null;
         boolean returnVal = true;
         Piece tempKing = chessBoard.Tiles[globalY][globalX].getPiece();

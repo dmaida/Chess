@@ -197,12 +197,18 @@ public class Controller {
         }
     }
 
-    private void drawMoves(ArrayList<Board.Tile> moveList) {
+    private void drawMoves(ArrayList<Board.Tile> moveList, int cX, int cY) {
+        selected(cX, cY);
+
         for (int i = 0; i < moveList.size(); i++) {
             int x = moveList.get(i).x;
             int y = moveList.get(i).y;
-            buttonMatrix[y][x].setStyle("-fx-background-color: #FF0000");
+            buttonMatrix[y][x].setStyle("-fx-background-color: #cc0000");
         }
+    }
+
+    private void selected(int cX, int cY) {
+        buttonMatrix[cY][cX].setStyle("-fx-background-color: #990000");
     }
 
     private void eraseMoves() {
@@ -344,20 +350,26 @@ public class Controller {
                             secondClick = true;
                             Main.cX = c;
                             Main.cY = r;
-                            drawMoves(Main.getListOfMoves(B));
+                            selected(c, r);
+                            if (Main.whiteTurn && B.Tiles[r][c].getPiece().isWhite ) {
+                                drawMoves(Main.getListOfMoves(B), c, r);
+                            } else if (Main.blackTurn && !B.Tiles[r][c].getPiece().isWhite){
+                                drawMoves(Main.getListOfMoves(B), c, r);
+                            }
                         } else if (secondClick){
-                            firstClick = true;
-                            secondClick = false;
                             int row = gp.getRowIndex(currentButton);
                             int col = gp.getColumnIndex(currentButton);
                             Main.nX = col;
                             Main.nY = row;
+                            firstClick = true;
+                            secondClick = false;
                             eraseMoves();
-                            Main.makeMove(B);
+                            Main.takeTurn(B);
                         }
                         if (pawnReachedEnd()) {
                             choosePiece(c, r);
                         }
+                        Main.check(B);
                         updateView();
                     }
                 });
