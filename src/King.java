@@ -64,7 +64,7 @@ public class King extends Piece {
             moveList.add(chessBoard.Tiles[currY + 1][currX]);
         }
 
-        moveList = castleMove(moveList);
+        //moveList = castleMove(moveList);
 
         return moveList;
     }
@@ -120,7 +120,6 @@ public class King extends Piece {
 
         if (p != null){
             chessBoard.Tiles[desiredY][desiredX].currentPiece = p;
-            chessBoard.Tiles[globalY][globalX].isOccupied = false;
         }
 
         chessBoard.Tiles[globalY][globalX].isOccupied = true;

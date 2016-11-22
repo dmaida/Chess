@@ -26,15 +26,13 @@ public abstract class Piece {
 
         King king = null;
 
-        int i;
+        int i = 0;
         int j = 0;
-        System.out.println(" ============== ");
         for (i = 0; i < 8; i++) {
             for (j = 0; j < 8; j++) {
                 if (chessBoard.Tiles[i][j].isOccupied) {
                     if (chessBoard.Tiles[i][j].getPiece().name.contains("King") && isWhite == chessBoard.Tiles[i][j].currentPiece.isWhite) {
                         king = (King) chessBoard.Tiles[i][j].getPiece();
-                        System.out.println(king.name + " found at [" + j +"]["+ i +"]");
                         break;
                     }
                 }
@@ -48,17 +46,18 @@ public abstract class Piece {
         boolean returnVal = false;
         Piece p = null;
 
+        System.out.println(king.name + " found at [" + j +"]["+ i +"]");
         if (chessBoard.Tiles[desiredY][desiredX].isOccupied){
             p = chessBoard.Tiles[desiredY][desiredX].getPiece();
             chessBoard.Tiles[desiredY][desiredX].currentPiece = null;
         }
         Piece currPiece = chessBoard.Tiles[globalY][globalX].getPiece();
 
-        chessBoard.Tiles[globalY][globalX].currentPiece = null;
-        chessBoard.Tiles[globalY][globalX].isOccupied = false;
-
         chessBoard.Tiles[desiredY][desiredX].currentPiece = currPiece;
         chessBoard.Tiles[desiredY][desiredX].isOccupied = true;
+
+        chessBoard.Tiles[globalY][globalX].currentPiece = null;
+        chessBoard.Tiles[globalY][globalX].isOccupied = false;
 
         if (king.isItSafe(j, i)) {
             returnVal = true;

@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -143,7 +144,7 @@ public class Controller {
 
         B.Tiles[0][4].currentPiece = b_queen;
 
-        B.Tiles[0][0].currentPiece = b_rook_0;
+        B.Tiles[0][0].currentPiece = b_rook_0;    ///
         B.Tiles[0][7].currentPiece = b_rook_1;
     }
 
@@ -326,9 +327,14 @@ public class Controller {
         gp.setVgap(0);
         gp.setHgap(0);
 
+
+        Rectangle rec = new Rectangle();
+        rec.setHeight(70);
+        rec.setWidth(70);
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
                 buttonMatrix[r][c] = new Button();
+                buttonMatrix[r][c].setShape(rec);
                 buttonMatrix[r][c].setPrefSize(70, 70);
                 gp.add(buttonMatrix[r][c], c, r);
                 Button currentButton = buttonMatrix[r][c];

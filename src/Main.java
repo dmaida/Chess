@@ -103,6 +103,7 @@ public class Main extends Application {
         Piece p = B.Tiles[cY][cX].getPiece();
 
         if(p.isValidMove(cX,cY,nX,nY)){
+
             if (p.name.contains("King")){
                 castling(B, p);
             }

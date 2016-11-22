@@ -58,6 +58,7 @@ public class Rook extends Piece {
                 moveList.add(chessBoard.Tiles[y][i]);
             }
         }
+
         return moveList;
     }
 

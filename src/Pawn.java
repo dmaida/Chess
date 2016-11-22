@@ -11,6 +11,9 @@ public class Pawn extends Piece {
         int x = currX;
         int y = currY;
 
+        globalX = currX;
+        globalY = currY;
+
         int dir = 1;
         if (!isWhite){
             dir = -1;
