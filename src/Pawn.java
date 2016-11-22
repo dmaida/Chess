@@ -11,34 +11,28 @@ public class Pawn extends Piece {
         int x = currX;
         int y = currY;
 
-        if (isWhite) {
-            if (y > 0 && !chessBoard.Tiles[y-1][x].isOccupied) {
-                moveList.add(chessBoard.Tiles[y-1][x]);
-            }
-
-            if (y > 1 && isFirstMove && !chessBoard.Tiles[y-2][x].isOccupied && !chessBoard.Tiles[y-1][x].isOccupied)
-                moveList.add(chessBoard.Tiles[y-2][x]);
-
-            if ((y > 0 && x > 0) && chessBoard.Tiles[y-1][x-1].isOccupied && !chessBoard.Tiles[y-1][x-1].currentPiece.isWhite)
-                moveList.add(chessBoard.Tiles[y-1][x-1]);
-
-            if ((y > 0 && x < 7) && chessBoard.Tiles[y-1][x+1].isOccupied && !chessBoard.Tiles[y-1][x+1].currentPiece.isWhite)
-                moveList.add(chessBoard.Tiles[y-1][x+1]);
+        int dir = 1;
+        if (!isWhite){
+            dir = -1;
         }
 
-        if (!isWhite) {
-            if (y < 7 && !chessBoard.Tiles[y+1][x].isOccupied) {
-                moveList.add(chessBoard.Tiles[y+1][x]);
+        if (y > 0 && y < 7){
+            if (!chessBoard.Tiles[y-(1 * dir)][x].isOccupied && IsKingProtected(x, y-(1 * dir))){
+                moveList.add(chessBoard.Tiles[y-(1 * dir)][x]);
             }
-            if (y < 6 && isFirstMove && !chessBoard.Tiles[y+2][x].isOccupied && !chessBoard.Tiles[y+1][x].isOccupied)
-                moveList.add(chessBoard.Tiles[y+2][x]);
+            if (isFirstMove && !chessBoard.Tiles[y-(2 * dir)][x].isOccupied && !chessBoard.Tiles[y-(1 * dir)][x].isOccupied && IsKingProtected(x, y-(2 * dir))){
+                moveList.add(chessBoard.Tiles[y-(2 * dir)][x]);
+            }
+            if (x > 0 && chessBoard.Tiles[y-(1 * dir)][x-1].isOccupied && isWhite != chessBoard.Tiles[y-(1 * dir)][x-1].currentPiece.isWhite && IsKingProtected(x-1, y-(1 * dir))){
+                moveList.add(chessBoard.Tiles[y-(1 * dir)][x-1]);
+            }
+            if (x < 7 && chessBoard.Tiles[y-(1 * dir)][x+1].isOccupied && isWhite != chessBoard.Tiles[y-(1 * dir)][x+1].currentPiece.isWhite && IsKingProtected(x+1, y-(1 * dir))){
+                moveList.add(chessBoard.Tiles[y-(1 * dir)][x+1]);
+            }
 
-            if ((y < 7 && x > 0) && chessBoard.Tiles[y+1][x-1].isOccupied && chessBoard.Tiles[y+1][x-1].currentPiece.isWhite)
-                moveList.add(chessBoard.Tiles[y+1][x-1]);
 
-            if ((y < 7 && x < 7) && chessBoard.Tiles[y+1][x+1].isOccupied && chessBoard.Tiles[y+1][x+1].currentPiece.isWhite)
-                moveList.add(chessBoard.Tiles[y+1][x+1]);
         }
+
         return moveList;
     }
 

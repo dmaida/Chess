@@ -208,7 +208,11 @@ public class Controller {
     }
 
     private void selected(int cX, int cY) {
-        buttonMatrix[cY][cX].setStyle("-fx-background-color: #990000");
+
+        if (B.Tiles[cY][cX].isOccupied) {
+            buttonMatrix[cY][cX].setStyle("-fx-background-color: #990000");
+        }
+
     }
 
     private void eraseMoves() {

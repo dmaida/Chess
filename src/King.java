@@ -165,13 +165,6 @@ public class King extends Piece {
         return false;
     }
 
-/*    private boolean checkOpponentMove(int currX, int currY, int oppY, int oppX) {
-
-        if (chessBoard.Tiles[oppY][oppX].isOccupied && chessBoard.Tiles[oppY][oppX].getPiece().name.contains("Pawn")){
-            return false;
-        }
-        return true;
-    }*/
     private boolean diagnalAttack(int currX, int currY){
 
         int j = currX;
@@ -212,6 +205,9 @@ public class King extends Piece {
                     else break;
                 }
                 else {
+                    if (chessBoard.Tiles[i][j].currentPiece.name.contains("Rook")){
+                        System.out.println("Found " + chessBoard.Tiles[i][j].currentPiece.name);
+                    }
                     if (chessBoard.Tiles[i][j].getPiece().name.contains("Queen") || chessBoard.Tiles[i][j].getPiece().name.contains("Bishop")) {
                         return true;
                     }
@@ -286,6 +282,10 @@ public class King extends Piece {
                     else break;
                 }
                 else {
+                    if (chessBoard.Tiles[y][j].getPiece().name.contains("Pawn")) {
+                        break;
+                    }
+
                     if (chessBoard.Tiles[y][j].getPiece().name.contains("Queen") || chessBoard.Tiles[y][j].getPiece().name.contains("Rook")) {
                         return true;
                     }
@@ -304,6 +304,9 @@ public class King extends Piece {
                     else break;
                 }
                 else {
+                    if (chessBoard.Tiles[y][j].getPiece().name.contains("Pawn")) {
+                        break;
+                    }
                     if (chessBoard.Tiles[y][j].getPiece().name.contains("Queen") || chessBoard.Tiles[y][j].getPiece().name.contains("Rook")) {
                         return true;
                     }
@@ -322,6 +325,9 @@ public class King extends Piece {
                     else break;
                 }
                 else {
+                    if (chessBoard.Tiles[i][x].getPiece().name.contains("Pawn")) {
+                        break;
+                    }
                     if (chessBoard.Tiles[i][x].getPiece().name.contains("Queen") || chessBoard.Tiles[i][x].getPiece().name.contains("Rook")) {
                         return true;
                     }
@@ -339,6 +345,9 @@ public class King extends Piece {
                     else break;
                 }
                 else {
+                    if (chessBoard.Tiles[i][x].getPiece().name.contains("Pawn")) {
+                        break;
+                    }
                     if (chessBoard.Tiles[i][x].getPiece().name.contains("Queen") || chessBoard.Tiles[i][x].getPiece().name.contains("Rook")) {
                         return true;
                     }
