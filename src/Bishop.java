@@ -9,18 +9,21 @@ public class Bishop extends Piece {
     public ArrayList<Board.Tile> getMoves(int currX, int currY) {
         moveList = new ArrayList<>();
 
+        globalX = currX;
+        globalY = currY;
+
         int j = currX;
         int i = currY;
 
         while (i < 7 && j > 0){
             i++;
             j--;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -29,12 +32,12 @@ public class Bishop extends Piece {
         while (i > 0 && j < 7){
             i--;
             j++;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -45,12 +48,12 @@ public class Bishop extends Piece {
         while (i < 7 && j < 7){
             i++;
             j++;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -61,12 +64,12 @@ public class Bishop extends Piece {
         while (i > 0 && j > 0){
             i--;
             j--;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -77,7 +80,7 @@ public class Bishop extends Piece {
         if (currX == toX && currY == toY) return false;
 
         for (int i = 0; i < moveList.size(); i++) {
-            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {
                 isFirstMove = false;
                 return true;
             }

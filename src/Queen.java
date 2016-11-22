@@ -11,25 +11,28 @@ public class Queen extends Piece{
         int x = currX;
         int y = currY;
 
-        diagonalPath(currX, currY, moveList);
-        straightPath(currX, currY, moveList);
+        moveList = diagonalPath(currX, currY, moveList);
+        moveList = straightPath(currX, currY, moveList);
 
         return moveList;
     }
 
     private ArrayList<Board.Tile> diagonalPath(int currX, int currY, ArrayList<Board.Tile> moveList) {
+        globalX = currX;
+        globalY = currY;
+
         int j = currX;
         int i = currY;
 
         while (i < 7 && j > 0){
             i++;
             j--;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -38,12 +41,12 @@ public class Queen extends Piece{
         while (i > 0 && j < 7){
             i--;
             j++;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -54,12 +57,12 @@ public class Queen extends Piece{
         while (i < 7 && j < 7){
             i++;
             j++;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
-            if (chessBoard.Tiles[i][j].isOccupied)
+            if (chessBoard.Tiles[i][j].isOccupied )
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -70,12 +73,12 @@ public class Queen extends Piece{
         while (i > 0 && j > 0){
             i--;
             j--;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
                 break;
-            if (!chessBoard.Tiles[i][j].isOccupied) {
+            if (!chessBoard.Tiles[i][j].isOccupied && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
         }
@@ -83,49 +86,52 @@ public class Queen extends Piece{
     }
 
     private ArrayList<Board.Tile> straightPath(int currX, int currY, ArrayList<Board.Tile> moveList) {
+        globalX = currX;
+        globalY = currY;
+
         int x = currX;
         int y = currY;
 
         for (int i = y; i < 8; i++) {
-            if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)  && IsKingProtected(x, i)) {
                 moveList.add(chessBoard.Tiles[i][x]);
             }
             if (chessBoard.Tiles[i][x].isOccupied && i!=y)
                 break;
-            if (!chessBoard.Tiles[i][x].isOccupied) {
+            if (!chessBoard.Tiles[i][x].isOccupied && IsKingProtected(x, i)) {
                 moveList.add(chessBoard.Tiles[i][x]);
             }
         }
 
         for (int i=y; i>=0; i--) {
-            if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite) && IsKingProtected(x, i)) {
                 moveList.add(chessBoard.Tiles[i][x]);
             }
             if (chessBoard.Tiles[i][x].isOccupied && i!=y)
                 break;
-            if (!chessBoard.Tiles[i][x].isOccupied) {
+            if (!chessBoard.Tiles[i][x].isOccupied && IsKingProtected(x, i)) {
                 moveList.add(chessBoard.Tiles[i][x]);
             }
         }
 
         for (int i = x; i < 8; i++) {
-            if (chessBoard.Tiles[y][i].isOccupied && (isWhite != chessBoard.Tiles[y][i].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[y][i].isOccupied && (isWhite != chessBoard.Tiles[y][i].currentPiece.isWhite) && IsKingProtected(i, y)) {
                 moveList.add(chessBoard.Tiles[y][i]);
             }
             if (chessBoard.Tiles[y][i].isOccupied && i!=x)
                 break;
-            if (!chessBoard.Tiles[y][i].isOccupied) {
+            if (!chessBoard.Tiles[y][i].isOccupied && IsKingProtected(i, y)) {
                 moveList.add(chessBoard.Tiles[y][i]);
             }
         }
 
         for (int i=x; i>=0; i--) {
-            if (chessBoard.Tiles[y][i].isOccupied && (isWhite != chessBoard.Tiles[y][i].currentPiece.isWhite)) {
+            if (chessBoard.Tiles[y][i].isOccupied && (isWhite != chessBoard.Tiles[y][i].currentPiece.isWhite) && IsKingProtected(i, y)) {
                 moveList.add(chessBoard.Tiles[y][i]);
             }
             if (chessBoard.Tiles[y][i].isOccupied && i!=x)
                 break;
-            if (!chessBoard.Tiles[y][i].isOccupied) {
+            if (!chessBoard.Tiles[y][i].isOccupied && IsKingProtected(i, y)) {
                 moveList.add(chessBoard.Tiles[y][i]);
             }
         }

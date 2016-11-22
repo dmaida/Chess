@@ -33,7 +33,7 @@ public class Main extends Application {
         if (p.name.contains("b")){
             dir = -1;
         }
-        if (p.name.contains("King") && ((nX == cX + (2 * dir)) | (nX == cX - (2 * dir)))){
+        if (p.name.contains("King") && ((nX == cX + (2 * dir)) || (nX == cX - (2 * dir)))){
             if (nX == cX + (2 * dir)) {
                 rook = B.Tiles[nY][nX + (dir * 1)].getPiece();
                 B.Tiles[nY][nX + (dir * 1)].isOccupied = false;
