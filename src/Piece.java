@@ -24,6 +24,8 @@ public abstract class Piece {
 
     public boolean IsKingProtected(int desiredX, int desiredY) {
 
+        System.out.println("YESSSSSSSSS");
+
         King king = null;
 
         int i;
@@ -47,7 +49,6 @@ public abstract class Piece {
         if (chessBoard.Tiles[desiredY][desiredX].isOccupied){
             p = chessBoard.Tiles[desiredY][desiredX].getPiece();
             chessBoard.Tiles[desiredY][desiredX].currentPiece = null;
-            System.out.println("----------------->"+p.name);
         }
         Piece currPiece = chessBoard.Tiles[globalY][globalX].getPiece();
 
@@ -57,7 +58,9 @@ public abstract class Piece {
         chessBoard.Tiles[desiredY][desiredX].currentPiece = currPiece;
         chessBoard.Tiles[desiredY][desiredX].isOccupied = true;
 
-
+        if (king != null) {
+            System.out.println("SHIT");
+        }
         if (king.isItSafe(j, i)) {
             returnVal = true;
         }

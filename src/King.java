@@ -11,7 +11,7 @@ public class King extends Piece {
         if (currX == toX && currY == toY) return false;
 
         for (int i = 0; i < moveList.size(); i++) {
-            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
+            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {
                 isFirstMove = false;
                 return true;
             }
@@ -28,15 +28,12 @@ public class King extends Piece {
         // check left side
         if (currX > 0){
             if ((!chessBoard.Tiles[currY][currX - 1].isOccupied || (chessBoard.Tiles[currY][currX - 1].isOccupied && isWhite != chessBoard.Tiles[currY][currX - 1].currentPiece.isWhite)) && isItSafe(currX - 1, currY)) {
-                System.out.println("1");
                 moveList.add(chessBoard.Tiles[currY][currX - 1]);
             }
             if (currY > 0 && (!chessBoard.Tiles[currY - 1][currX - 1].isOccupied ||  (chessBoard.Tiles[currY - 1][currX - 1].isOccupied && (isWhite != chessBoard.Tiles[currY - 1][currX - 1].currentPiece.isWhite))) && isItSafe(currX - 1, currY - 1)){
-                System.out.println("2");
                 moveList.add(chessBoard.Tiles[currY - 1][currX - 1]);
             }
             if (currY < 7 && (!chessBoard.Tiles[currY + 1][currX - 1].isOccupied || (chessBoard.Tiles[currY + 1][currX - 1].isOccupied && (isWhite != chessBoard.Tiles[currY + 1][currX - 1].currentPiece.isWhite))) && isItSafe(currX - 1, currY + 1)){
-                System.out.println("3");
                 moveList.add(chessBoard.Tiles[currY + 1][currX - 1]);
             }
 
@@ -45,16 +42,13 @@ public class King extends Piece {
         // check right side
         if (currX < 7){
             if ((!chessBoard.Tiles[currY][currX + 1].isOccupied || (chessBoard.Tiles[currY][currX + 1].isOccupied && isWhite != chessBoard.Tiles[currY][currX + 1].currentPiece.isWhite)) && isItSafe(currX + 1, currY)) {
-                System.out.println("4");
                 moveList.add(chessBoard.Tiles[currY][currX + 1]);
             }
             if (currY > 0 && (!chessBoard.Tiles[currY - 1][currX + 1].isOccupied || (chessBoard.Tiles[currY - 1][currX + 1].isOccupied && (isWhite != chessBoard.Tiles[currY - 1][currX + 1].currentPiece.isWhite))) && isItSafe(currX + 1, currY - 1)){
-                System.out.println("5");
                 moveList.add(chessBoard.Tiles[currY - 1][currX + 1]);
             }
 
             if (currY < 7 && (!chessBoard.Tiles[currY + 1][currX + 1].isOccupied || (chessBoard.Tiles[currY + 1][currX + 1].isOccupied && (isWhite != chessBoard.Tiles[currY + 1][currX + 1].currentPiece.isWhite))) && isItSafe(currX + 1, currY + 1)){
-                System.out.println("6");
                 moveList.add(chessBoard.Tiles[currY + 1][currX + 1]);
             }
 
@@ -62,13 +56,11 @@ public class King extends Piece {
 
         // check directly above
         if (currY > 0 && (!chessBoard.Tiles[currY - 1][currX].isOccupied || (chessBoard.Tiles[currY - 1][currX].isOccupied && (isWhite != chessBoard.Tiles[currY - 1][currX].currentPiece.isWhite))) && isItSafe(currX, currY - 1)){
-            System.out.println("7");
             moveList.add(chessBoard.Tiles[currY - 1][currX]);
         }
 
         // check directly below
         if (currY < 7 && (!chessBoard.Tiles[currY + 1][currX].isOccupied || (chessBoard.Tiles[currY + 1][currX].isOccupied && (isWhite != chessBoard.Tiles[currY + 1][currX].currentPiece.isWhite))) && isItSafe(currX, currY + 1)){
-            System.out.println("8");
             moveList.add(chessBoard.Tiles[currY + 1][currX]);
         }
 
@@ -77,7 +69,7 @@ public class King extends Piece {
         return moveList;
     }
 
-    private ArrayList castleMove(ArrayList moveList){
+    private ArrayList<Board.Tile> castleMove(ArrayList<Board.Tile> moveList){
 
         int dir = 1;
         if (!isWhite){

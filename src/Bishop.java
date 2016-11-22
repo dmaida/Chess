@@ -33,6 +33,7 @@ public class Bishop extends Piece {
             i--;
             j++;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
+                System.out.println("Entered here");
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
