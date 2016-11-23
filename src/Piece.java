@@ -17,6 +17,8 @@ public abstract class Piece {
         this.name = name;
         this.isWhite = isWhite;
         this.chessBoard.Tiles[y][x].isOccupied = true;
+        this.globalX = x;
+        this.globalY = y;
     }
     public abstract ArrayList<Board.Tile> getMoves(int currX, int currY);
 
@@ -41,12 +43,9 @@ public abstract class Piece {
                 break;
             }
         }
-        System.out.println("");
-
         boolean returnVal = false;
         Piece p = null;
 
-        System.out.println(king.name + " found at [" + j +"]["+ i +"]");
         if (chessBoard.Tiles[desiredY][desiredX].isOccupied){
             p = chessBoard.Tiles[desiredY][desiredX].getPiece();
             chessBoard.Tiles[desiredY][desiredX].currentPiece = null;

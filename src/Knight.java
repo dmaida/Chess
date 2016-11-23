@@ -11,9 +11,6 @@ public class Knight extends Piece{
         int x = currX;
         int y = currY;
 
-        globalX = currX;
-        globalY = currY;
-
         if ((y>1 && x>0) && (!chessBoard.Tiles[y-2][x-1].isOccupied || (chessBoard.Tiles[y-2][x-1].isOccupied && (isWhite != chessBoard.Tiles[y-2][x-1].currentPiece.isWhite))) && IsKingProtected(x-1, y-2)){
             moveList.add(chessBoard.Tiles[y-2][x-1]);
         }
@@ -45,8 +42,7 @@ public class Knight extends Piece{
         if (currX == toX && currY == toY) return false;
 
         for (int i = 0; i < moveList.size(); i++) {
-            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                isFirstMove = false;
+            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {
                 return true;
             }
         }

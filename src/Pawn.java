@@ -11,9 +11,6 @@ public class Pawn extends Piece {
         int x = currX;
         int y = currY;
 
-        globalX = currX;
-        globalY = currY;
-
         int dir = 1;
         if (!isWhite){
             dir = -1;
@@ -32,10 +29,7 @@ public class Pawn extends Piece {
             if (x < 7 && chessBoard.Tiles[y-(1 * dir)][x+1].isOccupied && isWhite != chessBoard.Tiles[y-(1 * dir)][x+1].currentPiece.isWhite && IsKingProtected(x+1, y-(1 * dir))){
                 moveList.add(chessBoard.Tiles[y-(1 * dir)][x+1]);
             }
-
-
         }
-
         return moveList;
     }
 
@@ -44,7 +38,6 @@ public class Pawn extends Piece {
 
         for (int i = 0; i < moveList.size(); i++) {
             if (moveList.get(i).y == toY && moveList.get(i).x == toX) {
-                isFirstMove = false;
                 return true;
             }
         }

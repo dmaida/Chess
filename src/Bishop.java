@@ -9,9 +9,6 @@ public class Bishop extends Piece {
     public ArrayList<Board.Tile> getMoves(int currX, int currY) {
         moveList = new ArrayList<>();
 
-        globalX = currX;
-        globalY = currY;
-
         int j = currX;
         int i = currY;
 
@@ -82,7 +79,6 @@ public class Bishop extends Piece {
 
         for (int i = 0; i < moveList.size(); i++) {
             if (moveList.get(i).y == toY && moveList.get(i).x == toX) {
-                isFirstMove = false;
                 return true;
             }
         }

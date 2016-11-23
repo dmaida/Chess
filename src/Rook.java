@@ -11,10 +11,6 @@ public class Rook extends Piece {
         int x = currX;
         int y = currY;
 
-        globalX = currX;
-        globalY = currY;
-
-
         for (int i = y; i < 8; i++) {
             if (chessBoard.Tiles[i][x].isOccupied && (isWhite != chessBoard.Tiles[i][x].currentPiece.isWhite)  && IsKingProtected(x, i)) {
                 moveList.add(chessBoard.Tiles[i][x] );
@@ -66,8 +62,7 @@ public class Rook extends Piece {
         if (currX == toX && currY == toY) return false;
 
         for (int i = 0; i < moveList.size(); i++) {
-            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                isFirstMove = false;
+            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {
                 return true;
             }
         }

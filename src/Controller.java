@@ -23,9 +23,12 @@ public class Controller {
     private GridPane gp;
     @FXML
     private Button[][] buttonMatrix;
-
     @FXML
     private BorderPane bp;
+    @FXML
+    private MenuItem undo;
+    @FXML
+    private MenuItem reset;
 
     private final int row = 8;
     private final int col = 8;
@@ -36,19 +39,19 @@ public class Controller {
     int height = 50;
     int width = 50;
 
-    Image w_bishop = new Image(getClass().getResourceAsStream("gui/w_bishop.png"), width, height, true, true);
-    Image w_king = new Image(getClass().getResourceAsStream("gui/w_king.png"), width, height, true, true);
-    Image w_knight = new Image(getClass().getResourceAsStream("gui/w_knight.png"), width, height, true, true);
-    Image w_pawn = new Image(getClass().getResourceAsStream("gui/w_pawn.png"), width, height, true, true);
-    Image w_queen = new Image(getClass().getResourceAsStream("gui/w_queen.png"), width, height, true, true);
-    Image w_rook = new Image(getClass().getResourceAsStream("gui/w_rook.png"), width, height, true, true);
+    private Image w_bishop = new Image(getClass().getResourceAsStream("gui/w_bishop.png"), width, height, true, true);
+    private Image w_king = new Image(getClass().getResourceAsStream("gui/w_king.png"), width, height, true, true);
+    private Image w_knight = new Image(getClass().getResourceAsStream("gui/w_knight.png"), width, height, true, true);
+    private Image w_pawn = new Image(getClass().getResourceAsStream("gui/w_pawn.png"), width, height, true, true);
+    private Image w_queen = new Image(getClass().getResourceAsStream("gui/w_queen.png"), width, height, true, true);
+    private Image w_rook = new Image(getClass().getResourceAsStream("gui/w_rook.png"), width, height, true, true);
 
-    Image b_bishop = new Image(getClass().getResourceAsStream("gui/b_bishop.png"), width, height, true, true);
-    Image b_king = new Image(getClass().getResourceAsStream("gui/b_king.png"), width, height, true, true);
-    Image b_knight = new Image(getClass().getResourceAsStream("gui/b_knight.png"), width, height, true, true);
-    Image b_pawn = new Image(getClass().getResourceAsStream("gui/b_pawn.png"), width, height, true, true);
-    Image b_queen = new Image(getClass().getResourceAsStream("gui/b_queen.png"), width, height, true, true);
-    Image b_rook = new Image(getClass().getResourceAsStream("gui/b_rook.png"), width, height, true, true);
+    private Image b_bishop = new Image(getClass().getResourceAsStream("gui/b_bishop.png"), width, height, true, true);
+    private Image b_king = new Image(getClass().getResourceAsStream("gui/b_king.png"), width, height, true, true);
+    private Image b_knight = new Image(getClass().getResourceAsStream("gui/b_knight.png"), width, height, true, true);
+    private Image b_pawn = new Image(getClass().getResourceAsStream("gui/b_pawn.png"), width, height, true, true);
+    private Image b_queen = new Image(getClass().getResourceAsStream("gui/b_queen.png"), width, height, true, true);
+    private Image b_rook = new Image(getClass().getResourceAsStream("gui/b_rook.png"), width, height, true, true);
 
     @FXML
     private void initialize() {
@@ -56,7 +59,7 @@ public class Controller {
         makeButtons();
         updateView();
     }
-
+    @FXML
     private void initializeGame() {
 
         B = new Board();
@@ -144,7 +147,7 @@ public class Controller {
 
         B.Tiles[0][4].currentPiece = b_queen;
 
-        B.Tiles[0][0].currentPiece = b_rook_0;    ///
+        B.Tiles[0][0].currentPiece = b_rook_0;
         B.Tiles[0][7].currentPiece = b_rook_1;
     }
 
@@ -196,6 +199,22 @@ public class Controller {
                 }
             }
         }
+    }
+    @FXML
+    private void undoMove() {
+        System.out.println("Undo move clicked");
+        Board newB = Main.undo();
+        if (newB != null) {
+            B = newB;
+            System.out.println("Undo move");
+        }
+        updateView();
+    }
+
+    @FXML
+    private void resetGame() {
+        initializeGame();
+        updateView();
     }
 
     private void drawMoves(ArrayList<Board.Tile> moveList, int cX, int cY) {

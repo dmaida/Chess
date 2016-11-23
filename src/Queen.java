@@ -8,8 +8,6 @@ public class Queen extends Piece{
 
     public ArrayList<Board.Tile> getMoves(int currX, int currY) {
         moveList = new ArrayList<>();
-        globalX = currX;
-        globalY = currY;
 
         int j = currX;
         int i = currY;
@@ -32,7 +30,6 @@ public class Queen extends Piece{
             i--;
             j++;
             if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
-                System.out.println("Entered here");
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
@@ -120,7 +117,6 @@ public class Queen extends Piece{
                 moveList.add(chessBoard.Tiles[y][i]);
             }
         }
-
         return moveList;
     }
 
@@ -129,8 +125,7 @@ public class Queen extends Piece{
         if (currX == toX && currY == toY) return false;
 
         for (int i = 0; i < moveList.size(); i++) {
-            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {     // the comparison is backwards due to rows(x) being toY and collumns(y) being to X.
-                isFirstMove = false;
+            if (moveList.get(i).y == toY && moveList.get(i).x == toX) {
                 return true;
             }
         }
