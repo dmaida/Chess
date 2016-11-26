@@ -10,8 +10,6 @@ import java.util.Stack;
 public class Main extends Application {
 
     protected static int cX, cY, nX, nY;
-    protected static boolean whiteTurn = true;
-    protected static boolean blackTurn = false;
 
     protected static Stack<Board> memory = null;
 
@@ -100,32 +98,75 @@ public class Main extends Application {
 
         Piece p = B.Tiles[cY][cX].getPiece();
 
-        if (whiteTurn && p.isWhite ) {
+        if (B.whiteTurn && p.isWhite ) {
             if (makeMove(B)) {
-                whiteTurn = !whiteTurn;
-                blackTurn = !blackTurn;
+                B.whiteTurn = !B.whiteTurn;
+                B.blackTurn = !B.blackTurn;
             }
         }
-        else if (blackTurn && !p.isWhite){
+        else if (B.blackTurn && !p.isWhite){
             if (makeMove(B)) {
-                whiteTurn = !whiteTurn;
-                blackTurn = !blackTurn;
+                B.whiteTurn = !B.whiteTurn;
+                B.blackTurn = !B.blackTurn;
             }
         }
         return false;
+    }
+    public static void print(Board B){
+        System.out.print("   ");
+        for (int i = 0; i < 8; i++){
+            System.out.print(i+" ");
+        }
+
+        System.out.println();
+        for (int i = 0; i < 8; i++){
+            System.out.print(i+" ");
+            System.out.print("|");
+            for (int j = 0; j < 8; j++) {
+                if(B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite ==true)){
+                    System.out.print("W|");
+                }
+                else if(B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite ==false)){
+                    System.out.print("B|");
+                }
+                else System.out.print("_|");
+            }
+            System.out.println();
+        }
     }
 
     private static Board clone(Board B) {
         Board newBoard = new Board();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                newBoard.Tiles[i][j].currentPiece = B.Tiles[i][j].getPiece();
-                newBoard.Tiles[i][j].isOccupied = B.Tiles[i][j].isOccupied;
-                newBoard.Tiles[i][j].x = B.Tiles[i][j].x;
-                newBoard.Tiles[i][j].y = B.Tiles[i][j].y;
+                if (B.Tiles[i][j].isOccupied) {
+                    newBoard.Tiles[i][j].currentPiece = clonePiece(B.Tiles[i][j].getPiece());
+                    newBoard.Tiles[i][j].isOccupied = B.Tiles[i][j].isOccupied;
+                    newBoard.Tiles[i][j].x = B.Tiles[i][j].x;
+                    newBoard.Tiles[i][j].y = B.Tiles[i][j].y;
+                }else {
+                    newBoard.Tiles[i][j].isOccupied = false;
+                }
             }
         }
         return newBoard;
+    }
+
+    private static Piece clonePiece(Piece p) {
+        Piece newPiece = p;
+        if (p != null) {
+            newPiece.isWhite = p.isWhite;
+            newPiece.globalY = p.globalY;
+            newPiece.globalX = p.globalX;
+            newPiece.isFirstMove = p.isFirstMove;
+            newPiece.chessBoard = p.chessBoard;
+            newPiece.moveList = p.moveList;
+            newPiece.name = p.name;
+            return newPiece;
+        } else if (p == null) {
+            return p;
+        }
+        return newPiece;
     }
 
     public static boolean makeMove(Board B) {
@@ -151,7 +192,7 @@ public class Main extends Application {
             p.globalX = nX;
             p.globalY = nY;
             B.Tiles[nY][nX].currentPiece = p;
-
+            print(B);
             return true;
         }
         return false;
@@ -162,6 +203,7 @@ public class Main extends Application {
         if (memory != null && memory.size() > 0) {
             B = memory.pop();
         }
+        print(B);
         return B;
     }
 

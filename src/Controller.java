@@ -1,4 +1,5 @@
 import javafx.collections.MapChangeListener;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -29,12 +30,15 @@ public class Controller {
     private MenuItem undo;
     @FXML
     private MenuItem reset;
+    @FXML
+    private MenuItem theme;
 
     private final int row = 8;
     private final int col = 8;
     private Board B;
     private boolean firstClick = true;
     private boolean secondClick = false;
+    private int themeNumb = 0;
 
     int height = 50;
     int width = 50;
@@ -235,21 +239,6 @@ public class Controller {
 
     }
 
-    private void eraseMoves() {
-
-        for (int r = 0; r < row; r++) {
-            for (int c = 0; c < col; c++) {
-                if ((r) % 2 == 0 && (c + 1) % 2 == 0) {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: #808080");
-                } else if ((r + 1) % 2 == 0 && (c) % 2 == 0) {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: #808080");
-                } else {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: #ffffff");
-                }
-            }
-        }
-    }
-
     private boolean pawnReachedEnd() {
         for (int i = 0; i < col; i++) {
             if (B.Tiles[0][i].isOccupied && B.Tiles[0][i].currentPiece.name.compareTo("w_Pawn") == 0) {
@@ -313,22 +302,101 @@ public class Controller {
         }
     }
 
+    private void setTheme() {
+
+        if (themeNumb == 0) {
+            for (int r = 0; r < row; r++) {
+                for (int c = 0; c < col; c++) {
+                    if ((r) % 2 == 0 && (c+1) % 2 == 0) {
+                        buttonMatrix[r][c].setStyle("-fx-background-color: grey");
+                    }else if ((r+1) % 2 == 0 && (c) % 2 == 0) {
+                        buttonMatrix[r][c].setStyle("-fx-background-color: grey");
+                    }
+                    else {
+                        buttonMatrix[r][c].setStyle("-fx-background-color: white");
+                    }
+                }
+            }
+        }
+
+        else if (themeNumb == 1) {
+            for (int r = 0; r < row; r++) {
+                for (int c = 0; c < col; c++) {
+                    if ((r) % 2 == 0 && (c+1) % 2 == 0) {
+                        buttonMatrix[r][c].setStyle("-fx-background-color: d08c47");
+                    }else if ((r+1) % 2 == 0 && (c) % 2 == 0) {
+                        buttonMatrix[r][c].setStyle("-fx-background-color: d08c47");
+                    }
+                    else {
+                        buttonMatrix[r][c].setStyle("-fx-background-color: fece9e");
+                    }
+                }
+            }
+        }
+    }
+
     public void makeButtons ( ) {
 
         int width = 1500;
         int height = 1000;
 
+        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,"", ButtonType.OK, ButtonType.CANCEL);
+                alert.setTitle("Chess");
+                alert.setContentText("Press OK to reset.");
+                alert.setHeaderText("Are you sure you want to reset game?");
+                alert.showAndWait();
+                alert.getResult();
+
+                if (alert.getResult().equals(ButtonType.OK)) {
+                    resetGame();
+                }
+            }
+        });
+
+        theme.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (themeNumb == 0) {
+
+                    Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop.jpg"), width, height, true, true);
+
+                    BackgroundImage backgroundOne = new BackgroundImage(desktopBG,
+                            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                            BackgroundSize.DEFAULT);
+                    bp.setBackground(new Background(backgroundOne));
+
+                    themeNumb++;
+                }
+                else if (themeNumb > 0) {
+                    Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop2.jpg"), width, height, true, true);
+
+                    BackgroundImage backgroundOne = new BackgroundImage(desktopBG,
+                            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                            BackgroundSize.DEFAULT);
+                    bp.setBackground(new Background(backgroundOne));
+                    themeNumb = 0;
+                }
+                setTheme();
+            }
+        });
+
         Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop.jpg"), width, height, true, true);
 
-        BackgroundImage backgroundOne= new BackgroundImage(desktopBG,
+        BackgroundImage backgroundOne = new BackgroundImage(desktopBG,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         bp.setBackground(new Background(backgroundOne));
+        themeNumb++;
 
         gp.getColumnConstraints().removeAll(gp.getColumnConstraints());
         gp.getRowConstraints().removeAll(gp.getRowConstraints());
         gp.getChildren().removeAll(gp.getChildren());
         buttonMatrix = new Button[row][col];
+
         for (int i = 0; i < row; i++) {
             RowConstraints row = new RowConstraints();
             row.setMaxHeight(70);
@@ -346,7 +414,6 @@ public class Controller {
         gp.setVgap(0);
         gp.setHgap(0);
 
-
         Rectangle rec = new Rectangle();
         rec.setHeight(70);
         rec.setWidth(70);
@@ -357,15 +424,6 @@ public class Controller {
                 buttonMatrix[r][c].setPrefSize(70, 70);
                 gp.add(buttonMatrix[r][c], c, r);
                 Button currentButton = buttonMatrix[r][c];
-
-                if ((r) % 2 == 0 && (c+1) % 2 == 0) {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: grey");
-                }else if ((r+1) % 2 == 0 && (c) % 2 == 0) {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: grey");
-                }
-                else {
-                    buttonMatrix[r][c].setStyle("-fx-background-color: white");
-                }
 
                 buttonMatrix[r][c].setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
@@ -380,9 +438,9 @@ public class Controller {
                             Main.cX = c;
                             Main.cY = r;
                             selected(c, r);
-                            if (Main.whiteTurn && B.Tiles[r][c].getPiece().isWhite ) {
+                            if (B.whiteTurn && B.Tiles[r][c].getPiece().isWhite ) {
                                 drawMoves(Main.getListOfMoves(B), c, r);
-                            } else if (Main.blackTurn && !B.Tiles[r][c].getPiece().isWhite){
+                            } else if (B.blackTurn && !B.Tiles[r][c].getPiece().isWhite){
                                 drawMoves(Main.getListOfMoves(B), c, r);
                             }
                         } else if (secondClick){
@@ -392,7 +450,7 @@ public class Controller {
                             Main.nY = row;
                             firstClick = true;
                             secondClick = false;
-                            eraseMoves();
+                            setTheme();
                             Main.takeTurn(B);
                         }
                         if (pawnReachedEnd()) {
@@ -404,5 +462,6 @@ public class Controller {
                 });
             }
         }
+        setTheme();
     }
 }

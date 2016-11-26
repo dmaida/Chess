@@ -28,8 +28,8 @@
    <top>
       <MenuButton mnemonicParsing="false" text="Options" BorderPane.alignment="TOP_LEFT">
         <items>
-          <MenuItem fx:id="resetGame" mnemonicParsing="false" onAction="#resetGame" text="Reset" />
-          <MenuItem mnemonicParsing="false" text="Change Theme" />
+          <MenuItem fx:id="reset" mnemonicParsing="false" text="Reset" />
+          <MenuItem fx:id="theme" mnemonicParsing="false" text="Change Theme" />
             <MenuItem mnemonicParsing="false" text="Hint" />
             <MenuItem mnemonicParsing="false" text="Difficulty" />
             <MenuItem fx:id="undo" mnemonicParsing="false" onAction="#undoMove" text="Undo" />

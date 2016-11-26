@@ -4,6 +4,9 @@ public class Board {
     private final int col = 8;
     public Tile[][] Tiles;
 
+    protected  boolean whiteTurn = true;
+    protected  boolean blackTurn = false;
+
     public Board() {
         Tiles = new Tile[col][row];
         for (int i = 0; i < col; i++) {
