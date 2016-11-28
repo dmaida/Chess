@@ -35,7 +35,7 @@ public class Controller {
 
     private final int row = 8;
     private final int col = 8;
-    private Board B;
+    protected Board B;
     private boolean firstClick = true;
     private boolean secondClick = false;
     private int themeNumb = 0;
@@ -64,7 +64,7 @@ public class Controller {
         updateView();
     }
     @FXML
-    private void initializeGame() {
+    public void initializeGame() {
 
         B = new Board();
 
@@ -338,7 +338,7 @@ public class Controller {
         }
     }
 
-    public void makeButtons ( ) {
+    private void makeButtons ( ) {
 
         int width = 1500;
         int height = 1000;
