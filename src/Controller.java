@@ -39,6 +39,7 @@ public class Controller {
     private boolean firstClick = true;
     private boolean secondClick = false;
     private int themeNumb = 0;
+    private Main main;
 
     int height = 50;
     int width = 50;
@@ -67,6 +68,7 @@ public class Controller {
     public void initializeGame() {
 
         B = new Board();
+        main = new Main();
 
         Bishop w_bishop_0 = new Bishop(B, "w_Bishop", true, 7, 2);
         Bishop w_bishop_1 = new Bishop(B, "w_Bishop", true, 7, 5);
@@ -207,7 +209,7 @@ public class Controller {
     @FXML
     private void undoMove() {
         System.out.println("Undo move clicked");
-        Board newB = Main.undo();
+        Board newB = main.undo();
         if (newB != null) {
             B = newB;
             System.out.println("Undo move");
@@ -432,34 +434,30 @@ public class Controller {
                     @Override
                     public void handle(MouseEvent event) {
 
-                        int r = gp.getRowIndex(currentButton);
-                        int c = gp.getColumnIndex(currentButton);
+                        int cY = gp.getRowIndex(currentButton);
+                        int cX = gp.getColumnIndex(currentButton);
 
-                        if (firstClick && B.Tiles[r][c].isOccupied) {
+                        if (firstClick && B.Tiles[cY][cX].isOccupied) {
                             firstClick = false;
                             secondClick = true;
-                            Main.cX = c;
-                            Main.cY = r;
-                            selected(c, r);
-                            if (B.whiteTurn && B.Tiles[r][c].getPiece().isWhite ) {
-                                drawMoves(Main.getListOfMoves(B), c, r);
-                            } else if (B.blackTurn && !B.Tiles[r][c].getPiece().isWhite){
-                                drawMoves(Main.getListOfMoves(B), c, r);
+                            selected(cX, cY);
+                            if (B.whiteTurn && B.Tiles[cY][cX].getPiece().isWhite ) {
+                                drawMoves(main.getListOfMoves(B, cX, cY), cX, cY);
+                            } else if (B.blackTurn && !B.Tiles[cY][cX].getPiece().isWhite){
+                                drawMoves(main.getListOfMoves(B, cX, cY), cX, cY);
                             }
                         } else if (secondClick){
-                            int row = gp.getRowIndex(currentButton);
-                            int col = gp.getColumnIndex(currentButton);
-                            Main.nX = col;
-                            Main.nY = row;
+                            int nY = gp.getRowIndex(currentButton);
+                            int nX = gp.getColumnIndex(currentButton);
                             firstClick = true;
                             secondClick = false;
                             setTheme();
-                            Main.takeTurn(B);
+                            main.takeTurn(B, cX, cY, nX, nY);
                         }
                         if (pawnReachedEnd()) {
-                            choosePiece(c, r);
+                            choosePiece(cX, cY);
                         }
-                        Main.check(B);
+                        main.check(B);
                         updateView();
                     }
                 });

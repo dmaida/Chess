@@ -9,15 +9,17 @@ import java.util.Stack;
 
 public class Main extends Application {
 
-    protected static int cX, cY, nX, nY;
+    private int cX, cY, nX, nY;
 
-    protected static Stack<Board> memory = null;
+    private Stack<Board> memory = null;
 
-    public static ArrayList<Board.Tile> getListOfMoves(Board B) {
+    public ArrayList<Board.Tile> getListOfMoves(Board B, int cX, int cY) {
+        this.cX = cX;
+        this.cY = cY;
         Piece p = B.Tiles[cY][cX].getPiece();
         return p.getMoves(cX, cY);
     }
-    private static void castling(Board B, Piece p){
+    private void castling(Board B, Piece p){
         int dir = 1;
         Piece rook;
 
@@ -34,9 +36,6 @@ public class Main extends Application {
                 rook.isFirstMove = false;
                 rook.globalX = nX - (dir * 1);
                 B.Tiles[nY][nX - (dir * 1)].currentPiece = rook;
-
-
-
             }
             else {
                 rook = B.Tiles[nY][nX - (dir * 2)].getPiece();
@@ -51,7 +50,7 @@ public class Main extends Application {
         }
     }
 
-    public static boolean checkmate(Board B, boolean isWhite) {
+    public boolean checkmate(Board B, boolean isWhite) {
         boolean checkmate = true;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -66,7 +65,7 @@ public class Main extends Application {
         return checkmate;
     }
 
-    public static boolean check(Board B) {
+    public  boolean check(Board B) {
         King blackKing;
         King whiteKing;
         for (int i = 0; i < 8; i++) {
@@ -82,7 +81,6 @@ public class Main extends Application {
                                 return true;
                             }
                         }
-
                     }
                     if (B.Tiles[i][j].getPiece().name.compareTo("b_King") == 0) {
                         blackKing = (King) B.Tiles[i][j].getPiece();
@@ -101,25 +99,25 @@ public class Main extends Application {
         return false;
     }
 
-    public static boolean takeTurn(Board B) {
+    public boolean takeTurn(Board B, int cX, int cY, int nX, int nY) {
 
         Piece p = B.Tiles[cY][cX].getPiece();
 
         if (B.whiteTurn && p.isWhite ) {
-            if (makeMove(B)) {
+            if (makeMove(B, cX, cY, nX, nY)) {
                 B.whiteTurn = !B.whiteTurn;
                 B.blackTurn = !B.blackTurn;
             }
         }
         else if (B.blackTurn && !p.isWhite){
-            if (makeMove(B)) {
+            if (makeMove(B, cX, cY, nX, nY)) {
                 B.whiteTurn = !B.whiteTurn;
                 B.blackTurn = !B.blackTurn;
             }
         }
         return false;
     }
-    public static void print(Board B){
+    public void print(Board B){
         System.out.print("   ");
         for (int i = 0; i < 8; i++){
             System.out.print(i+" ");
@@ -142,7 +140,7 @@ public class Main extends Application {
         }
     }
 
-    private static Board clone(Board B) {
+    private Board clone(Board B) {
         Board newBoard = new Board();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -176,7 +174,14 @@ public class Main extends Application {
         return newPiece;
     }
 
-    public static boolean makeMove(Board B) {
+    public boolean makeMove(Board B, int cX, int cY, int nX, int nY) {
+
+        this.cX = cX;
+        this.cY = cY;
+        this.nX = nX;
+        this.nY = nY;
+
+        getListOfMoves(B, cX, cY);
 
         if (memory == null) {
             memory = new Stack<>();
@@ -199,18 +204,18 @@ public class Main extends Application {
             p.globalX = nX;
             p.globalY = nY;
             B.Tiles[nY][nX].currentPiece = p;
-            print(B);
+            //print(B);
             return true;
         }
         return false;
     }
 
-    public static Board undo() {
+    public Board undo() {
         Board B = null;
         if (memory != null && memory.size() > 0) {
             B = memory.pop();
         }
-        print(B);
+        //print(B);
         return B;
     }
 

@@ -75,8 +75,31 @@ public class BasicTest {
     }
 
     @Test
+    public void test_Bishop () {
+        Controller chessGUI = new Controller();
+
+        chessGUI.initializeGame();
+        Board chessBoard = chessGUI.B;
+
+        Main main = new Main();
+
+        assertNotNull(chessBoard.Tiles[7][2].getPiece());
+        assertEquals(chessBoard.Tiles[7][2].getPiece().name, "w_Bishop");
+
+        //move the pawn out of the way
+        main.getListOfMoves(chessBoard, 3, 6);
+        main.makeMove(chessBoard, 3, 6, 3, 5);
+
+        //move the bishop
+        main.makeMove(chessBoard, 2, 7, 7, 2);
+        //Did it do the move correctly?
+        assertNotNull(chessBoard.Tiles[2][7].getPiece());
+        assertEquals(chessBoard.Tiles[2][7].getPiece().name, "w_Bishop");
+    }
+
+    @Test
     public void  test_Pawn() {
-       Controller chessGUI = new Controller();
+        Controller chessGUI = new Controller();
 
         chessGUI.initializeGame();
         Board chessBoard = chessGUI.B;
@@ -86,15 +109,10 @@ public class BasicTest {
         assertNotNull(chessBoard.Tiles[6][3].getPiece());
         assertEquals(chessBoard.Tiles[6][3].getPiece().name, "w_Pawn");
 
+        main.makeMove(chessBoard, 3, 6, 3, 5);
 
-        main.cY = 6;
-        main.cX = 3;
-
-        main.nY = 5;
-        main.nX = 3;
-        main.getListOfMoves(chessBoard);
-        main.makeMove(chessBoard);
-        assertNotNull(chessBoard.Tiles[4][3].getPiece());
+        assertNotNull(chessBoard.Tiles[5][3].getPiece());
+        assertEquals(chessBoard.Tiles[5][3].getPiece().name, "w_Pawn");
     }
 
 }
