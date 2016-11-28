@@ -217,6 +217,9 @@ public class Controller {
 
     @FXML
     private void resetGame() {
+        firstClick = true;
+        secondClick = false;
+        setTheme();
         initializeGame();
         updateView();
     }
