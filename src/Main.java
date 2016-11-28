@@ -31,7 +31,12 @@ public class Main extends Application {
                 B.Tiles[nY][nX + (dir * 1)].currentPiece = null;
 
                 B.Tiles[nY][nX - (dir * 1)].isOccupied = true;
+                rook.isFirstMove = false;
+                rook.globalX = nX - (dir * 1);
                 B.Tiles[nY][nX - (dir * 1)].currentPiece = rook;
+
+
+
             }
             else {
                 rook = B.Tiles[nY][nX - (dir * 2)].getPiece();
@@ -39,6 +44,8 @@ public class Main extends Application {
                 B.Tiles[nY][nX - (dir * 2)].currentPiece = null;
 
                 B.Tiles[nY][nX + (dir * 1)].isOccupied = true;
+                rook.isFirstMove = false;
+                rook.globalX = nX + (dir * 1);
                 B.Tiles[nY][nX + (dir * 1)].currentPiece = rook;
             }
         }
