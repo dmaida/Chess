@@ -11,7 +11,7 @@ public class Main extends Application {
 
     protected static int cX, cY, nX, nY;
 
-    protected static Stack<Board> memory = null;
+    protected static Stack<Board> memory = new Stack<>();
 
     public static ArrayList<Board.Tile> getListOfMoves(Board B) {
         Piece p = B.Tiles[cY][cX].getPiece();
@@ -147,46 +147,67 @@ public class Main extends Application {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (B.Tiles[i][j].isOccupied) {
-                    newBoard.Tiles[i][j].currentPiece = clonePiece(B.Tiles[i][j].getPiece());
-                    newBoard.Tiles[i][j].isOccupied = B.Tiles[i][j].isOccupied;
-                    newBoard.Tiles[i][j].x = B.Tiles[i][j].x;
-                    newBoard.Tiles[i][j].y = B.Tiles[i][j].y;
+                    newBoard.Tiles[i][j].isOccupied = true;
+                    newBoard.Tiles[i][j].x = j;
+                    newBoard.Tiles[i][j].y = i;
+                    Piece p = clonePiece(B.Tiles[i][j].getPiece(), newBoard);
+                    p.globalY = i;
+                    p.globalX = j;
+                    newBoard.Tiles[i][j].currentPiece = p;
+                    //newBoard.Tiles[i][j].currentPiece = clonePiece(B.Tiles[i][j].getPiece(), newBoard);
                 }else {
                     newBoard.Tiles[i][j].isOccupied = false;
                 }
             }
         }
+
         return newBoard;
     }
 
-    private static Piece clonePiece(Piece p) {
-        Piece newPiece = p;
-        if (p != null) {
-            newPiece.isWhite = p.isWhite;
-            newPiece.globalY = p.globalY;
-            newPiece.globalX = p.globalX;
-            newPiece.isFirstMove = p.isFirstMove;
-            newPiece.chessBoard = p.chessBoard;
-            newPiece.moveList = p.moveList;
-            newPiece.name = p.name;
-            return newPiece;
-        } else if (p == null) {
-            return p;
+    private static Piece clonePiece(Piece oldPiece, Board B) {
+        int y = oldPiece.globalY;
+        int x = oldPiece.globalX;
+        boolean isWhite = oldPiece.isWhite;
+        String name = oldPiece.name;
+
+
+        if (oldPiece.name.contains("King")){
+            King w_king = new King(B, name, isWhite, y, x);
+            return w_king;
         }
-        return newPiece;
+        if (oldPiece.name.contains("Bishop")){
+            Bishop w_bishop = new Bishop(B, name, isWhite, y, x);
+            return w_bishop;
+        }
+        if (oldPiece.name.contains("Knight")){
+            Knight w_knight = new Knight(B, name, isWhite, y, x);
+            return w_knight;
+        }
+        if (oldPiece.name.contains("Rook")){
+            Rook w_rook = new Rook(B, name, isWhite, y, x);
+            return w_rook;
+        }
+        if (oldPiece.name.contains("Pawn")){
+            Pawn w_pawn = new Pawn(B, name, isWhite, y, x);
+            return w_pawn;
+        }
+        if (oldPiece.name.contains("Queen")){
+            Queen w_queen = new Queen(B, name, isWhite, y, x);
+            return w_queen;
+        }
+        return null;
     }
 
     public static boolean makeMove(Board B) {
 
-        if (memory == null) {
-            memory = new Stack<>();
-        }
-
-        memory.push(clone(B));
-
         Piece p = B.Tiles[cY][cX].getPiece();
 
         if(p.isValidMove(cX,cY,nX,nY)){
+            if (memory.size() == 0){
+                System.out.println("Size: "+ memory.size());
+            }
+            memory.push(clone(B));
+            System.out.println("Size: "+ memory.size());
 
             if (p.name.contains("King")){
                 castling(B, p);
@@ -205,12 +226,31 @@ public class Main extends Application {
         return false;
     }
 
-    public static Board undo() {
-        Board B = null;
-        if (memory != null && memory.size() > 0) {
-            B = memory.pop();
+    public static Board undo(Board oldB) {
+//        System.out.println("++++++++++++++++++++++++++++++++++++++++++");
+//        System.out.println("Old Board");
+//        print(oldB);
+        if (memory.size() == 0){
+            return oldB;
         }
+        Board B = memory.pop();
+        if (oldB.blackTurn){
+            B.blackTurn = false;
+            B.whiteTurn = true;
+        }
+        else {
+            B.blackTurn = true;
+            B.whiteTurn = false;
+        }
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        System.out.println("After Undoing Move");
         print(B);
+//        System.out.println("++++++++++++++++++++++++++++++++++++++++++");
         return B;
     }
 

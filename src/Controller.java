@@ -13,10 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Controller {
 
@@ -207,11 +204,9 @@ public class Controller {
     @FXML
     private void undoMove() {
         System.out.println("Undo move clicked");
-        Board newB = Main.undo();
-        if (newB != null) {
-            B = newB;
-            System.out.println("Undo move");
-        }
+        B = Main.undo(B);
+        System.out.println("Undo move");
+
         updateView();
     }
 
@@ -219,6 +214,7 @@ public class Controller {
     private void resetGame() {
         firstClick = true;
         secondClick = false;
+        Main.memory = new Stack<>();
         setTheme();
         initializeGame();
         updateView();
