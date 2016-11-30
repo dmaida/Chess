@@ -197,6 +197,7 @@ public class Main extends Application {
     public static boolean makeMove(Board B) {
         Piece p = B.Tiles[cY][cX].getPiece();
 
+        p.getMoves(cX, cY);
         if(p.isValidMove(cX,cY,nX,nY)){
             memory.push(clone(B));
             if (p.name.contains("King")){
@@ -231,12 +232,6 @@ public class Main extends Application {
         return B;
     }
 
-    private static final long MEGABYTE = 1024L * 1024L;
-
-    public static long bytesToMegabytes(long bytes) {
-        return bytes / MEGABYTE;
-    }
-    @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("chess.fxml"));
         primaryStage.setTitle("Chess");
