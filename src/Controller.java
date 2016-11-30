@@ -37,8 +37,10 @@ public class Controller {
     private boolean secondClick = false;
     private int themeNumb = 0;
 
-    int height = 50;
-    int width = 50;
+    private double windowSize = 1.45;
+
+    double height = 50 *windowSize;
+    double width = 50 * windowSize;
 
     private Image w_bishop = new Image(getClass().getResourceAsStream("gui/w_bishop.png"), width, height, true, true);
     private Image w_king = new Image(getClass().getResourceAsStream("gui/w_king.png"), width, height, true, true);
@@ -203,10 +205,7 @@ public class Controller {
     }
     @FXML
     private void undoMove() {
-        System.out.println("Undo move clicked");
         B = Main.undo(B);
-        System.out.println("Undo move");
-
         updateView();
     }
 
@@ -218,6 +217,11 @@ public class Controller {
         setTheme();
         initializeGame();
         updateView();
+    }
+
+    @FXML
+    private void exitChess() {
+        System.exit(0);
     }
 
     private void drawMoves(ArrayList<Board.Tile> moveList, int cX, int cY) {
@@ -336,8 +340,8 @@ public class Controller {
 
     private void makeButtons ( ) {
 
-        int width = 1500;
-        int height = 1000;
+        double width = 1500 * windowSize;
+        double height = 1000 * windowSize;
 
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -398,15 +402,15 @@ public class Controller {
 
         for (int i = 0; i < row; i++) {
             RowConstraints row = new RowConstraints();
-            row.setMaxHeight(70);
-            row.setMinHeight(70);
+            row.setMaxHeight(70 * windowSize);
+            row.setMinHeight(70 * windowSize);
             gp.getRowConstraints().add(row);
 
         }
         for (int i = 0; i < col; i++) {
             ColumnConstraints column = new ColumnConstraints();
-            column.setMaxWidth(70);
-            column.setMinWidth(70);
+            column.setMaxWidth(70 * windowSize);
+            column.setMinWidth(70 * windowSize);
             gp.getColumnConstraints().add(column);
         }
 
@@ -414,13 +418,13 @@ public class Controller {
         gp.setHgap(0);
 
         Rectangle rec = new Rectangle();
-        rec.setHeight(70);
-        rec.setWidth(70);
+        rec.setHeight(70 * windowSize);
+        rec.setWidth(70 * windowSize);
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
                 buttonMatrix[r][c] = new Button();
                 buttonMatrix[r][c].setShape(rec);
-                buttonMatrix[r][c].setPrefSize(70, 70);
+                buttonMatrix[r][c].setPrefSize(70*windowSize, 70 * windowSize);
                 gp.add(buttonMatrix[r][c], c, r);
                 Button currentButton = buttonMatrix[r][c];
 

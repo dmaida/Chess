@@ -1,15 +1,20 @@
+import com.sun.imageio.spi.InputStreamImageInputStreamSpi;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class Main extends Application {
 
     protected static int cX, cY, nX, nY;
+
+    protected static double windowSize = 1.45;
 
     protected static Stack<Board> memory = new Stack<>();
 
@@ -76,21 +81,15 @@ public class Main extends Application {
                         whiteKing = (King) B.Tiles[i][j].getPiece();
 
                         if (!whiteKing.isItSafe(j, i) ) {
-                            System.out.println("Check: White");
                             if (checkmate(B, true)) {
-                                System.out.println("Checkmate: Black won");
                                 return true;
                             }
                         }
-
                     }
                     if (B.Tiles[i][j].getPiece().name.compareTo("b_King") == 0) {
                         blackKing = (King) B.Tiles[i][j].getPiece();
-
                         if (!blackKing.isItSafe(j, i) ) {
-                            System.out.println("Check: Black");
                             if (checkmate(B, false)) {
-                                System.out.println("Checkmate: White won");
                                 return true;
                             }
                         }
@@ -154,13 +153,11 @@ public class Main extends Application {
                     p.globalY = i;
                     p.globalX = j;
                     newBoard.Tiles[i][j].currentPiece = p;
-                    //newBoard.Tiles[i][j].currentPiece = clonePiece(B.Tiles[i][j].getPiece(), newBoard);
                 }else {
                     newBoard.Tiles[i][j].isOccupied = false;
                 }
             }
         }
-
         return newBoard;
     }
 
@@ -169,46 +166,46 @@ public class Main extends Application {
         int x = oldPiece.globalX;
         boolean isWhite = oldPiece.isWhite;
         String name = oldPiece.name;
-
+        boolean isFirstMove = oldPiece.isFirstMove;
 
         if (oldPiece.name.contains("King")){
             King w_king = new King(B, name, isWhite, y, x);
+            w_king.isFirstMove = isFirstMove;
             return w_king;
         }
         if (oldPiece.name.contains("Bishop")){
             Bishop w_bishop = new Bishop(B, name, isWhite, y, x);
+            w_bishop.isFirstMove = isFirstMove;
             return w_bishop;
         }
         if (oldPiece.name.contains("Knight")){
             Knight w_knight = new Knight(B, name, isWhite, y, x);
+            w_knight.isFirstMove = isFirstMove;
             return w_knight;
         }
         if (oldPiece.name.contains("Rook")){
             Rook w_rook = new Rook(B, name, isWhite, y, x);
+            w_rook.isFirstMove = isFirstMove;
             return w_rook;
         }
         if (oldPiece.name.contains("Pawn")){
             Pawn w_pawn = new Pawn(B, name, isWhite, y, x);
+            w_pawn.isFirstMove = isFirstMove;
             return w_pawn;
         }
         if (oldPiece.name.contains("Queen")){
             Queen w_queen = new Queen(B, name, isWhite, y, x);
+            w_queen.isFirstMove = isFirstMove;
             return w_queen;
         }
         return null;
     }
 
     public static boolean makeMove(Board B) {
-
         Piece p = B.Tiles[cY][cX].getPiece();
 
         if(p.isValidMove(cX,cY,nX,nY)){
-            if (memory.size() == 0){
-                System.out.println("Size: "+ memory.size());
-            }
             memory.push(clone(B));
-            System.out.println("Size: "+ memory.size());
-
             if (p.name.contains("King")){
                 castling(B, p);
             }
@@ -220,16 +217,12 @@ public class Main extends Application {
             p.globalX = nX;
             p.globalY = nY;
             B.Tiles[nY][nX].currentPiece = p;
-            print(B);
             return true;
         }
         return false;
     }
 
     public static Board undo(Board oldB) {
-//        System.out.println("++++++++++++++++++++++++++++++++++++++++++");
-//        System.out.println("Old Board");
-//        print(oldB);
         if (memory.size() == 0){
             return oldB;
         }
@@ -242,27 +235,24 @@ public class Main extends Application {
             B.blackTurn = true;
             B.whiteTurn = false;
         }
-
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-        System.out.println("After Undoing Move");
-        print(B);
-//        System.out.println("++++++++++++++++++++++++++++++++++++++++++");
         return B;
     }
 
+    private static final long MEGABYTE = 1024L * 1024L;
+
+    public static long bytesToMegabytes(long bytes) {
+        return bytes / MEGABYTE;
+    }
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("chess.fxml"));
         primaryStage.setTitle("Chess");
-        primaryStage.setScene(new Scene(root, 650, 650));
+        primaryStage.setScene(new Scene(root, 650 * windowSize, 650 *windowSize));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
     public static void main(String[] args) {launch(args);
     }
+
 }

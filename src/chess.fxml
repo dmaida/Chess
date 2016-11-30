@@ -28,11 +28,10 @@
    <top>
       <MenuButton mnemonicParsing="false" text="Options" BorderPane.alignment="TOP_LEFT">
         <items>
-          <MenuItem fx:id="reset" mnemonicParsing="false" text="Reset" />
           <MenuItem fx:id="theme" mnemonicParsing="false" text="Change Theme" />
-            <MenuItem mnemonicParsing="false" text="Hint" />
-            <MenuItem mnemonicParsing="false" text="Difficulty" />
+          <MenuItem fx:id="reset" mnemonicParsing="false" text="Reset" />
             <MenuItem fx:id="undo" mnemonicParsing="false" onAction="#undoMove" text="Undo" />
+            <MenuItem mnemonicParsing="false" onAction="#exitChess" text="Quit" />
         </items>
          <padding>
             <Insets bottom="-5.0" top="-5.0" />
