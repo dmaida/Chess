@@ -120,7 +120,6 @@ public class Queen extends Piece{
         return moveList;
     }
 
-
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
         if (currX == toX && currY == toY) return false;
 

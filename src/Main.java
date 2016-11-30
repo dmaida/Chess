@@ -1,12 +1,8 @@
-import com.sun.imageio.spi.InputStreamImageInputStreamSpi;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -39,9 +35,6 @@ public class Main extends Application {
                 rook.isFirstMove = false;
                 rook.globalX = nX - (dir * 1);
                 B.Tiles[nY][nX - (dir * 1)].currentPiece = rook;
-
-
-
             }
             else {
                 rook = B.Tiles[nY][nX - (dir * 2)].getPiece();
