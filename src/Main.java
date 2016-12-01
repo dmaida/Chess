@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 
 public class Main extends Application {
@@ -11,6 +12,8 @@ public class Main extends Application {
     protected static int cX, cY, nX, nY;
 
     protected static double windowSize = 1.45;
+
+    protected static boolean AI = true;
 
     protected static Stack<Board> memory = new Stack<>();
 
@@ -93,6 +96,54 @@ public class Main extends Application {
         return false;
     }
 
+    public static void choosePiece(Board B) {
+
+        ArrayList<Piece> pieceLIst = new ArrayList<>();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (B.Tiles[i][j].isOccupied && !B.Tiles[i][j].getPiece().isWhite) {
+                    Piece p = B.Tiles[i][j].getPiece();
+                    if (p.getMoves(j, i).size() > 0) {
+                        pieceLIst.add(p);
+                    }
+
+                }
+            }
+        }
+
+        Random r = new Random();
+
+        ArrayList<Board.Tile> possibleMoves = null;
+
+        if (pieceLIst.size() > 0) {
+            int ranNumb = positiveRan(pieceLIst.size());
+            Piece piece = pieceLIst.get(ranNumb);
+
+            cY = piece.globalY;
+            cX = piece.globalX;
+
+            possibleMoves = piece.getMoves(cX, cY);
+        }
+
+        if(possibleMoves != null && possibleMoves.size() > 0) {
+            Board.Tile nextTile = possibleMoves.get(positiveRan(possibleMoves.size()));
+            nY = nextTile.y;
+            nX = nextTile.x;
+            makeMove(B);
+        }
+    }
+
+    public static int positiveRan(int mod) {
+        Random r = new Random();
+        int ranNumb = r.nextInt();
+        if (ranNumb < 0 ) {
+            ranNumb *= -1;
+        }
+        ranNumb = ranNumb % mod;
+        return ranNumb;
+    }
+
     public static boolean takeTurn(Board B) {
 
         Piece p = B.Tiles[cY][cX].getPiece();
@@ -101,7 +152,16 @@ public class Main extends Application {
             if (makeMove(B)) {
                 B.whiteTurn = !B.whiteTurn;
                 B.blackTurn = !B.blackTurn;
+
+                if (AI) {
+                    choosePiece(B);
+                    B.whiteTurn = !B.whiteTurn;
+                    B.blackTurn = !B.blackTurn;
+                    return false;
+                }
             }
+
+
         }
         else if (B.blackTurn && !p.isWhite){
             if (makeMove(B)) {

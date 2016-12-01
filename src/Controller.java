@@ -252,7 +252,7 @@ public class Controller {
         return false;
     }
 
-    private void choosePiece(int x, int y) {
+    private void promotion(int x, int y) {
         List<String> choices = new ArrayList<>();
         choices.add("Bishop");
         choices.add("Knight");
@@ -450,10 +450,11 @@ public class Controller {
                             secondClick = false;
                             setTheme();
                             Main.takeTurn(B);
+                            if (pawnReachedEnd()) {
+                                promotion(c, r);
+                            }
                         }
-                        if (pawnReachedEnd()) {
-                            choosePiece(c, r);
-                        }
+
                         Main.check(B);
                         updateView();
                     }
