@@ -32,6 +32,7 @@
           <MenuItem fx:id="reset" mnemonicParsing="false" text="Reset" />
             <MenuItem fx:id="undo" mnemonicParsing="false" onAction="#undoMove" text="Undo" />
             <MenuItem mnemonicParsing="false" onAction="#exitChess" text="Quit" />
+            <MenuItem fx:id="aiSwitch" mnemonicParsing="false" onAction="#turnOnAI" text="AI: Off" />
         </items>
          <padding>
             <Insets bottom="-5.0" top="-5.0" />

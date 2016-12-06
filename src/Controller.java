@@ -24,6 +24,8 @@ public class Controller {
     private MenuItem reset;
     @FXML
     private MenuItem theme;
+    @FXML
+    private MenuItem aiSwitch;
 
     private final int row = 8;
     private final int col = 8;
@@ -212,6 +214,18 @@ public class Controller {
         setTheme();
         initializeGame();
         updateView();
+    }
+
+    @FXML
+    private void turnOnAI() {
+
+        if (!Main.isAIOn) {
+            Main.isAIOn = true;
+            aiSwitch.setText("AI: ON");
+        } else if (Main.isAIOn) {
+            Main.isAIOn = false;
+            aiSwitch.setText("AI: OFF");
+        }
     }
 
     @FXML
