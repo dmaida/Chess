@@ -21,14 +21,15 @@ public class Main extends Application {
         Piece p = B.Tiles[cY][cX].getPiece();
         return p.getMoves(cX, cY);
     }
-    private static void castling(Board B, Piece p){
+
+    private static void castling(Board B, Piece p) {
         int dir = 1;
         Piece rook;
 
-        if (p.name.contains("b")){
+        if (p.name.contains("b")) {
             dir = -1;
         }
-        if (p.name.contains("King") && ((nX == cX + (2 * dir)) || (nX == cX - (2 * dir)))){
+        if (p.name.contains("King") && ((nX == cX + (2 * dir)) || (nX == cX - (2 * dir)))) {
             if (nX == cX + (2 * dir)) {
                 rook = B.Tiles[nY][nX + (dir * 1)].getPiece();
                 B.Tiles[nY][nX + (dir * 1)].isOccupied = false;
@@ -38,8 +39,7 @@ public class Main extends Application {
                 rook.isFirstMove = false;
                 rook.globalX = nX - (dir * 1);
                 B.Tiles[nY][nX - (dir * 1)].currentPiece = rook;
-            }
-            else {
+            } else {
                 rook = B.Tiles[nY][nX - (dir * 2)].getPiece();
                 B.Tiles[nY][nX - (dir * 2)].isOccupied = false;
                 B.Tiles[nY][nX - (dir * 2)].currentPiece = null;
@@ -56,7 +56,7 @@ public class Main extends Application {
         boolean checkmate = true;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (B.Tiles[i][j].isOccupied && isWhite ==  B.Tiles[i][j].getPiece().isWhite) {
+                if (B.Tiles[i][j].isOccupied && isWhite == B.Tiles[i][j].getPiece().isWhite) {
                     Piece p = B.Tiles[i][j].getPiece();
                     if (p.getMoves(j, i).size() > 0) {
                         checkmate = false;
@@ -76,7 +76,7 @@ public class Main extends Application {
                     if (B.Tiles[i][j].getPiece().name.compareTo("w_King") == 0) {
                         whiteKing = (King) B.Tiles[i][j].getPiece();
 
-                        if (!whiteKing.isItSafe(j, i) ) {
+                        if (!whiteKing.isItSafe(j, i)) {
                             if (checkmate(B, true)) {
                                 return true;
                             }
@@ -84,7 +84,7 @@ public class Main extends Application {
                     }
                     if (B.Tiles[i][j].getPiece().name.compareTo("b_King") == 0) {
                         blackKing = (King) B.Tiles[i][j].getPiece();
-                        if (!blackKing.isItSafe(j, i) ) {
+                        if (!blackKing.isItSafe(j, i)) {
                             if (checkmate(B, false)) {
                                 return true;
                             }
@@ -100,7 +100,7 @@ public class Main extends Application {
 
         Piece p = B.Tiles[cY][cX].getPiece();
 
-        if (B.whiteTurn && p.isWhite ) {
+        if (B.whiteTurn && p.isWhite) {
             if (makeMove(B)) {
                 B.whiteTurn = !B.whiteTurn;
                 B.blackTurn = !B.blackTurn;
@@ -113,9 +113,7 @@ public class Main extends Application {
                 }
             }
 
-
-        }
-        else if (B.blackTurn && !p.isWhite){
+        } else if (B.blackTurn && !p.isWhite) {
             if (makeMove(B)) {
                 B.whiteTurn = !B.whiteTurn;
                 B.blackTurn = !B.blackTurn;
@@ -123,24 +121,24 @@ public class Main extends Application {
         }
         return false;
     }
-    public static void print(Board B){
+
+    public static void print(Board B) {
         System.out.print("   ");
-        for (int i = 0; i < 8; i++){
-            System.out.print(i+" ");
+        for (int i = 0; i < 8; i++) {
+            System.out.print(i + " ");
         }
 
         System.out.println();
-        for (int i = 0; i < 8; i++){
-            System.out.print(i+" ");
+        for (int i = 0; i < 8; i++) {
+            System.out.print(i + " ");
             System.out.print("|");
             for (int j = 0; j < 8; j++) {
-                if(B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite ==true)){
+                if (B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite == true)) {
                     System.out.print("W|");
-                }
-                else if(B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite ==false)){
+                } else if (B.Tiles[i][j].isOccupied && (B.Tiles[i][j].getPiece().isWhite == false)) {
                     System.out.print("B|");
-                }
-                else System.out.print("_|");
+                } else
+                    System.out.print("_|");
             }
             System.out.println();
         }
@@ -158,7 +156,7 @@ public class Main extends Application {
                     p.globalY = i;
                     p.globalX = j;
                     newBoard.Tiles[i][j].currentPiece = p;
-                }else {
+                } else {
                     newBoard.Tiles[i][j].isOccupied = false;
                 }
             }
@@ -173,32 +171,32 @@ public class Main extends Application {
         String name = oldPiece.name;
         boolean isFirstMove = oldPiece.isFirstMove;
 
-        if (oldPiece.name.contains("King")){
+        if (oldPiece.name.contains("King")) {
             King w_king = new King(B, name, isWhite, y, x);
             w_king.isFirstMove = isFirstMove;
             return w_king;
         }
-        if (oldPiece.name.contains("Bishop")){
+        if (oldPiece.name.contains("Bishop")) {
             Bishop w_bishop = new Bishop(B, name, isWhite, y, x);
             w_bishop.isFirstMove = isFirstMove;
             return w_bishop;
         }
-        if (oldPiece.name.contains("Knight")){
+        if (oldPiece.name.contains("Knight")) {
             Knight w_knight = new Knight(B, name, isWhite, y, x);
             w_knight.isFirstMove = isFirstMove;
             return w_knight;
         }
-        if (oldPiece.name.contains("Rook")){
+        if (oldPiece.name.contains("Rook")) {
             Rook w_rook = new Rook(B, name, isWhite, y, x);
             w_rook.isFirstMove = isFirstMove;
             return w_rook;
         }
-        if (oldPiece.name.contains("Pawn")){
+        if (oldPiece.name.contains("Pawn")) {
             Pawn w_pawn = new Pawn(B, name, isWhite, y, x);
             w_pawn.isFirstMove = isFirstMove;
             return w_pawn;
         }
-        if (oldPiece.name.contains("Queen")){
+        if (oldPiece.name.contains("Queen")) {
             Queen w_queen = new Queen(B, name, isWhite, y, x);
             w_queen.isFirstMove = isFirstMove;
             return w_queen;
@@ -210,9 +208,9 @@ public class Main extends Application {
         Piece p = B.Tiles[cY][cX].getPiece();
 
         p.getMoves(cX, cY);
-        if(p.isValidMove(cX,cY,nX,nY)){
+        if (p.isValidMove(cX, cY, nX, nY)) {
             memory.push(clone(B));
-            if (p.name.contains("King")){
+            if (p.name.contains("King")) {
                 castling(B, p);
             }
             B.Tiles[cY][cX].isOccupied = false;
@@ -229,30 +227,30 @@ public class Main extends Application {
     }
 
     public static Board undo(Board oldB) {
-        if (memory.size() == 0){
+        if (memory.size() == 0) {
             return oldB;
         }
         Board B = memory.pop();
-        if (oldB.blackTurn){
+        if (oldB.blackTurn) {
             B.blackTurn = false;
             B.whiteTurn = true;
-        }
-        else {
+        } else {
             B.blackTurn = true;
             B.whiteTurn = false;
         }
         return B;
     }
 
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("chess.fxml"));
         primaryStage.setTitle("Chess");
-        primaryStage.setScene(new Scene(root, 650 * windowSize, 650 *windowSize));
+        primaryStage.setScene(new Scene(root, 650 * windowSize, 650 * windowSize));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
-    public static void main(String[] args) {launch(args);
+    public static void main(String[] args) {
+        launch(args);
     }
 
 }

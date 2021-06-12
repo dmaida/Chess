@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Bishop extends Piece {
 
-    public Bishop (Board board, String name, boolean isWhite, int y, int x) {
+    public Bishop(Board board, String name, boolean isWhite, int y, int x) {
         super(board, name, isWhite, y, x);
     }
 
@@ -12,10 +12,11 @@ public class Bishop extends Piece {
         int j = currX;
         int i = currY;
 
-        while (i < 7 && j > 0){
+        while (i < 7 && j > 0) {
             i++;
             j--;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)
+                    && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
@@ -26,10 +27,11 @@ public class Bishop extends Piece {
         }
         j = currX;
         i = currY;
-        while (i > 0 && j < 7){
+        while (i > 0 && j < 7) {
             i--;
             j++;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)
+                    && IsKingProtected(j, i)) {
                 System.out.println("Entered here");
                 moveList.add(chessBoard.Tiles[i][j]);
             }
@@ -43,10 +45,11 @@ public class Bishop extends Piece {
         j = currX;
         i = currY;
 
-        while (i < 7 && j < 7){
+        while (i < 7 && j < 7) {
             i++;
             j++;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)
+                    && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
@@ -59,10 +62,11 @@ public class Bishop extends Piece {
         j = currX;
         i = currY;
 
-        while (i > 0 && j > 0){
+        while (i > 0 && j > 0) {
             i--;
             j--;
-            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite) && IsKingProtected(j, i)) {
+            if (chessBoard.Tiles[i][j].isOccupied && (isWhite != chessBoard.Tiles[i][j].currentPiece.isWhite)
+                    && IsKingProtected(j, i)) {
                 moveList.add(chessBoard.Tiles[i][j]);
             }
             if (chessBoard.Tiles[i][j].isOccupied)
@@ -75,7 +79,8 @@ public class Bishop extends Piece {
     }
 
     public boolean isValidMove(int currX, int currY, int toX, int toY) {
-        if (currX == toX && currY == toY) return false;
+        if (currX == toX && currY == toY)
+            return false;
 
         for (int i = 0; i < moveList.size(); i++) {
             if (moveList.get(i).y == toY && moveList.get(i).x == toX) {

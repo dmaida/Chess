@@ -36,7 +36,7 @@ public class Controller {
 
     private double windowSize = 1.45;
 
-    double height = 50 *windowSize;
+    double height = 50 * windowSize;
     double width = 50 * windowSize;
 
     private Image w_bishop = new Image(getClass().getResourceAsStream("gui/w_bishop.png"), width, height, true, true);
@@ -59,6 +59,7 @@ public class Controller {
         makeButtons();
         updateView();
     }
+
     @FXML
     public void initializeGame() {
 
@@ -159,47 +160,36 @@ public class Controller {
                     String name = p.name;
                     if ((name.compareTo("w_Bishop") == 0)) {
                         buttonMatrix[i][j].setGraphic(new ImageView(w_bishop));
-                    }
-                    else if (name.compareTo("w_King") == 0) {
+                    } else if (name.compareTo("w_King") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(w_king));
-                    }
-                    else if (name.compareTo("w_Knight") == 0) {
+                    } else if (name.compareTo("w_Knight") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(w_knight));
-                    }
-                    else if (name.compareTo("w_Pawn") == 0) {
+                    } else if (name.compareTo("w_Pawn") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(w_pawn));
-                    }
-                    else if (name.compareTo("w_Queen") == 0) {
+                    } else if (name.compareTo("w_Queen") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(w_queen));
-                    }
-                    else if (name.compareTo("w_Rook") == 0) {
+                    } else if (name.compareTo("w_Rook") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(w_rook));
-                    }
-                    else if ((name.compareTo("b_Bishop") == 0)) {
+                    } else if ((name.compareTo("b_Bishop") == 0)) {
                         buttonMatrix[i][j].setGraphic(new ImageView(b_bishop));
-                    }
-                    else if (name.compareTo("b_King") == 0) {
+                    } else if (name.compareTo("b_King") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(b_king));
-                    }
-                    else if (name.compareTo("b_Knight") == 0) {
+                    } else if (name.compareTo("b_Knight") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(b_knight));
-                    }
-                    else if (name.compareTo("b_Pawn") == 0) {
+                    } else if (name.compareTo("b_Pawn") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(b_pawn));
-                    }
-                    else if (name.compareTo("b_Queen") == 0) {
+                    } else if (name.compareTo("b_Queen") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(b_queen));
-                    }
-                    else if (name.compareTo("b_Rook") == 0) {
+                    } else if (name.compareTo("b_Rook") == 0) {
                         buttonMatrix[i][j].setGraphic(new ImageView(b_rook));
                     }
-                }
-                else {
+                } else {
                     buttonMatrix[i][j].setGraphic(null);
                 }
             }
         }
     }
+
     @FXML
     private void undoMove() {
         B = Main.undo(B);
@@ -280,7 +270,7 @@ public class Controller {
         dialog.setContentText("Choose your piece:");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
+        if (result.isPresent()) {
 
             if (result.get().contains("Bishop")) {
                 if (B.Tiles[y][x].getPiece().isWhite) {
@@ -319,12 +309,11 @@ public class Controller {
         if (themeNumb == 0) {
             for (int r = 0; r < row; r++) {
                 for (int c = 0; c < col; c++) {
-                    if ((r) % 2 == 0 && (c+1) % 2 == 0) {
+                    if ((r) % 2 == 0 && (c + 1) % 2 == 0) {
                         buttonMatrix[r][c].setStyle("-fx-background-color: grey");
-                    }else if ((r+1) % 2 == 0 && (c) % 2 == 0) {
+                    } else if ((r + 1) % 2 == 0 && (c) % 2 == 0) {
                         buttonMatrix[r][c].setStyle("-fx-background-color: grey");
-                    }
-                    else {
+                    } else {
                         buttonMatrix[r][c].setStyle("-fx-background-color: white");
                     }
                 }
@@ -334,12 +323,11 @@ public class Controller {
         else if (themeNumb == 1) {
             for (int r = 0; r < row; r++) {
                 for (int c = 0; c < col; c++) {
-                    if ((r) % 2 == 0 && (c+1) % 2 == 0) {
+                    if ((r) % 2 == 0 && (c + 1) % 2 == 0) {
                         buttonMatrix[r][c].setStyle("-fx-background-color: d08c47");
-                    }else if ((r+1) % 2 == 0 && (c) % 2 == 0) {
+                    } else if ((r + 1) % 2 == 0 && (c) % 2 == 0) {
                         buttonMatrix[r][c].setStyle("-fx-background-color: d08c47");
-                    }
-                    else {
+                    } else {
                         buttonMatrix[r][c].setStyle("-fx-background-color: fece9e");
                     }
                 }
@@ -347,7 +335,7 @@ public class Controller {
         }
     }
 
-    private void makeButtons ( ) {
+    private void makeButtons() {
 
         double width = 1500 * windowSize;
         double height = 1000 * windowSize;
@@ -356,7 +344,7 @@ public class Controller {
             @Override
             public void handle(ActionEvent event) {
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION,"", ButtonType.OK, ButtonType.CANCEL);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK, ButtonType.CANCEL);
                 alert.setTitle("Chess");
                 alert.setContentText("Press OK to reset.");
                 alert.setHeaderText("Are you sure you want to reset game?");
@@ -374,21 +362,20 @@ public class Controller {
             public void handle(ActionEvent event) {
                 if (themeNumb == 0) {
 
-                    Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop.jpg"), width, height, true, true);
+                    Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop.jpg"), width, height, true,
+                            true);
 
-                    BackgroundImage backgroundOne = new BackgroundImage(desktopBG,
-                            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                            BackgroundSize.DEFAULT);
+                    BackgroundImage backgroundOne = new BackgroundImage(desktopBG, BackgroundRepeat.REPEAT,
+                            BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
                     bp.setBackground(new Background(backgroundOne));
 
                     themeNumb++;
-                }
-                else if (themeNumb > 0) {
-                    Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop2.jpg"), width, height, true, true);
+                } else if (themeNumb > 0) {
+                    Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop2.jpg"), width, height, true,
+                            true);
 
-                    BackgroundImage backgroundOne = new BackgroundImage(desktopBG,
-                            BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                            BackgroundSize.DEFAULT);
+                    BackgroundImage backgroundOne = new BackgroundImage(desktopBG, BackgroundRepeat.REPEAT,
+                            BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
                     bp.setBackground(new Background(backgroundOne));
                     themeNumb = 0;
                 }
@@ -398,9 +385,8 @@ public class Controller {
 
         Image desktopBG = new Image(getClass().getResourceAsStream("gui/desktop.jpg"), width, height, true, true);
 
-        BackgroundImage backgroundOne = new BackgroundImage(desktopBG,
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
+        BackgroundImage backgroundOne = new BackgroundImage(desktopBG, BackgroundRepeat.REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         bp.setBackground(new Background(backgroundOne));
         themeNumb++;
 
@@ -433,7 +419,7 @@ public class Controller {
             for (int c = 0; c < col; c++) {
                 buttonMatrix[r][c] = new Button();
                 buttonMatrix[r][c].setShape(rec);
-                buttonMatrix[r][c].setPrefSize(70*windowSize, 70 * windowSize);
+                buttonMatrix[r][c].setPrefSize(70 * windowSize, 70 * windowSize);
                 gp.add(buttonMatrix[r][c], c, r);
                 Button currentButton = buttonMatrix[r][c];
 
@@ -450,12 +436,12 @@ public class Controller {
                             Main.cX = c;
                             Main.cY = r;
                             selected(c, r);
-                            if (B.whiteTurn && B.Tiles[r][c].getPiece().isWhite ) {
+                            if (B.whiteTurn && B.Tiles[r][c].getPiece().isWhite) {
                                 drawMoves(Main.getListOfMoves(B), c, r);
-                            } else if (B.blackTurn && !B.Tiles[r][c].getPiece().isWhite){
+                            } else if (B.blackTurn && !B.Tiles[r][c].getPiece().isWhite) {
                                 drawMoves(Main.getListOfMoves(B), c, r);
                             }
-                        } else if (secondClick){
+                        } else if (secondClick) {
                             int row = gp.getRowIndex(currentButton);
                             int col = gp.getColumnIndex(currentButton);
                             Main.nX = col;

@@ -31,7 +31,7 @@ public class AI {
             possibleMoves = piece.getMoves(Main.cX, Main.cY);
         }
 
-        if(possibleMoves != null && possibleMoves.size() > 0) {
+        if (possibleMoves != null && possibleMoves.size() > 0) {
             Board.Tile nextTile = possibleMoves.get(positiveRan(possibleMoves.size()));
             Main.nY = nextTile.y;
             Main.nX = nextTile.x;
@@ -42,7 +42,7 @@ public class AI {
     public static int positiveRan(int mod) {
         Random r = new Random();
         int ranNumb = r.nextInt();
-        if (ranNumb < 0 ) {
+        if (ranNumb < 0) {
             ranNumb *= -1;
         }
         ranNumb = ranNumb % mod;
