@@ -4,13 +4,13 @@ public class Board {
     private final int col = 8;
     public Tile[][] Tiles;
 
-    protected  boolean whiteTurn = true;
-    protected  boolean blackTurn = false;
+    protected boolean whiteTurn = true;
+    protected boolean blackTurn = false;
 
     public Board() {
         Tiles = new Tile[col][row];
         for (int i = 0; i < col; i++) {
-            for ( int j = 0; j < row; j++) {
+            for (int j = 0; j < row; j++) {
 
                 Tile tile = new Tile();
                 Tiles[i][j] = tile;
@@ -32,6 +32,5 @@ public class Board {
             return currentPiece;
         }
     }
-
 
 }
